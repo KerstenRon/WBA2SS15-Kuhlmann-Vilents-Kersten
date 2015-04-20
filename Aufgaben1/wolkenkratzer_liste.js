@@ -1,27 +1,35 @@
 var fs = require('fs');
 var file = __dirname + '/wolkenkratzer.json';
+
  
 
-fs.readFile(file, {encoding: 'utf8'}, function (err, data) {
+
+fs.readFile(file, function (err, data) {
     if(err) {
         console.log('Error:' + err);
         
         return;
     }
-        data = JSON.stringify(data);
-        data = JSON.parse(data);
-    console.log(data);
+        
+        var data = JSON.parse(data);
+        var arr = new Array (data);
+        var i;
+    
+     for( i = 0; i < arr.length; i++) {
+    //console.log("----------------------------------\n" + arr.data[i].name + "\n" + arr.data[i].stadt + "\n" + arr.data[i].hoehe + "\nLaenge: " + data.lenght);
+        console.log(arr.lenght);
+     }
 });
 
-/*fs.writeFile(file, data, function(err){
+var data = __dirname + '/my.json';
+
+
+fs.writeFile(data, JSON.stringify(file, null, 4), function(err){
     if(err){
         console.log('Error:' + err);
-        
         return;
-    }
+    } 
+    else {
         console.log('It\'s saved!');
-});**/
-
-function wolkenkratzer_liste() {
-    fs.readFile();
-}
+    }
+});
