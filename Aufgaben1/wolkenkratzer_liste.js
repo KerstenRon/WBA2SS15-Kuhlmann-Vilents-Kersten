@@ -1,24 +1,17 @@
 var fs = require('fs');
 var file = __dirname + '/wolkenkratzer.json';
 
- 
-
-
 fs.readFile(file, function (err, data) {
     if(err) {
         console.log('Error:' + err);
-        
         return;
     }
         
-        var data = JSON.parse(data);
-        var arr = new Array (data);
-        var i;
-    
-     for( i = 0; i < arr.length; i++) {
-    //console.log("----------------------------------\n" + arr.data[i].name + "\n" + arr.data[i].stadt + "\n" + arr.data[i].hoehe + "\nLaenge: " + data.lenght);
-        console.log(arr.lenght);
-     }
+    var data = JSON.parse(data);
+    var i;    
+    for( i = 0; i < data.wolkenkratzer.length; i++) {
+        console.log("Name: " + data.wolkenkratzer[i].name + "\n" + "Stadt: " + data.wolkenkratzer[i].stadt + "\n" + "Hoehe: " + data.wolkenkratzer[i].hoehe + "\n----------------------------------");
+    }
 });
 
 var data = __dirname + '/my.json';
