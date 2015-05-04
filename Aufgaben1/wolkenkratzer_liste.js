@@ -3,7 +3,7 @@ var file = __dirname + '/wolkenkratzer.json';
 
 fs.readFile(file, function (err, data) {
     if(err) {
-        console.log('Error:' + err);
+        console.log("Error:" + err);
         return;
     }
         
