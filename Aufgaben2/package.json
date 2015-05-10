@@ -1,0 +1,23 @@
+{
+  "name": "Aufgaben2",
+  "version": "1.0.0",
+  "description": "Kleines Programm zum einlesen und sortieren eines JSON.",
+  "main": "wolkenkratzer_liste.js",
+  "dependencies": {
+    "chalk": "^1.0.0"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/KerstenRon/WBA2SS15-Kuhlmann-Vilents-Kersten"
+  },
+  "author": "Jan Kuhlmann Leonid Vilents Ron Kersten",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/KerstenRon/WBA2SS15-Kuhlmann-Vilents-Kersten/issues"
+  },
+  "homepage": "https://github.com/KerstenRon/WBA2SS15-Kuhlmann-Vilents-Kersten"
+}
