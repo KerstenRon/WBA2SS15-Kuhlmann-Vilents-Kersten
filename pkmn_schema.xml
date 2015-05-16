@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--Schablone für den Datensatz eines Pkmn-->
+<xs:element name="pkmn">
+    <xs:complexType>
+        <xs:sequence>
+            <!--Eventuell Formattierung auf konstante Dreistelligkeit (001, 002...)-->
+            <xs:element name="dexid" type="xs:integer"/>
+            
+            <xs:element name="name" type="xs:string"/>
+            
+            <!--Evtl. eigenes "Typ"-Objekt?-->
+            <xs:element name="type1" type="xs:string"/>
+            <xs:element name="type2" type="xs:string"/>
+            
+            <!--Zuordnung der "Art"-->
+            <xs:element name="group" type="xs:string"/>
+            
+            <!--Eigentliche Beschreibung-->
+            <xs:element name="desc" type="xs:string"/>
+        </xs:sequence>
+    </xs:complexType>
+</xs:element>
