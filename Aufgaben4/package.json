@@ -1,0 +1,22 @@
+{
+  "name": "pkDex.js",
+  "version": "0.0.1",
+  "description": "Ein kleiner Pokedex, der durch Node.js und Express.js implementiert wurde.",
+  "main": "pkDex.js",
+  "dependencies": {
+    "body-parser": "^1.12.3",
+    "chalk": "^1.0.0",
+    "express": "^4.12.3",
+    "fs": "^0.0.2"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/KerstenRon/WBA2SS15-Kuhlmann-Vilents-Kersten/tree/master"
+  },
+  "author": "Ron Kersten Jan Kuhlmann Leonid Vilents",
+  "license": "ISC"
+}
