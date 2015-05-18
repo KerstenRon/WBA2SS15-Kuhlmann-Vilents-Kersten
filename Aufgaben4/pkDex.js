@@ -47,12 +47,12 @@ app.get('/pkDex', function(req, res){
     res.status(200).json(pkDex);
 });
 //Per GET wird auf eine beliebige 'id' in der JSON 'pkDex' zugegriffen sollte ein Fehler auftreten (z.B.: id nicht vorhanden) wird der Statuscode '404' ausgegeben.
-app.get('/pkDex/:id', jsonParser, function(req, res){
-    var id = req.params.id;
-    console.log("Die Angeforderte id ist: "+id);
+app.get('/pkDex/:index', jsonParser, function(req, res){
+    var index = req.params.index;
+    console.log("Die Angeforderte index ist: "+index);
     
     var filt = pkDex.filter(function(value, index, arr){
-        return value.id == id;
+        return value.index == index;
     });
     
     if (filt.length >= 1) {
