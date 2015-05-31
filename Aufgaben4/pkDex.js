@@ -68,31 +68,55 @@ app.get('/', function(req, res) {
     }
 });
 
-//Per GET kann man auf die Datei '/pkDex' zugreifen | Ruckgabe von Status '200' und der JSON 'pkDex'
-app.get('/pkDex', function(req, res){
-    res.status(200).json(pkDex);
-});
-
 //Per GET kann man auf die Datei '/pkTeam' zugreifen.
 app.get('/pkTeam', function(req, res){
     res.status(200).json(pkTeam);
 });
-//_________________
 
-//_________________
 //Per GET wird auf eine beliebige 'id' in der JSON 'pkDex' zugegriffen sollte ein Fehler auftreten (z.B.: id nicht vorhanden) wird der Statuscode '404' ausgegeben.
-app.get('/pkDex/:id', jsonParser, function(req, res){
-    var id = req.params.id;
-    console.log("Die Angeforderte id ist: "+id);
+app.get('/pkDex/:index', jsonParser, function(req, res){
+    var index = req.params.index;
+    console.log("Die Angeforderte id ist: "+index);
     
-    var filt = pkDex.filter(function(value, index, arr){
-        return value.id == id;
+    var filt = pkDex.filter(function(value, i, arr){
+        return value.index == index;
     });
     
     if (filt.length >= 1) {
         res.status(200).json(filt);
     } else {
         res.status(404).end();
+    }
+});
+
+//Per GET kann man auf die Datei '/pkDex' zugreifen, sowie nach queryparams filtern.
+app.get('/pkDex', function(req, res) {
+    
+    if (req.query.index !== undefined) {
+        res.json(pkDex.filter(function(prm, i, arr) {
+            return prm.index == req.query.index
+        }));   
+    } else if (req.query.name !== undefined) {
+        res.json(pkDex.filter(function(prm, i, arr) {
+            return prm.name == req.query.name 
+        })); 
+    } else if (req.query.typ1 !== undefined) {
+        res.json(pkDex.filter(function(prm, i, arr) {
+            return prm.typ1 == req.query.typ1 
+        })); 
+    } else if (req.query.typ2 !== undefined) {
+        res.json(pkDex.filter(function(prm, i, arr) {
+            return prm.typ2 == req.query.typ2 
+        }));
+    } else if (req.query.bes !== undefined) {
+        res.json(pkDex.filter(function(prm, i, arr) {
+            return prm.bes == req.query.bes
+        }));
+    }
+    
+    else {
+        res.json(pkDex);
+        console.log(pkDex + "Der gesuchte Index ist NICHT vorhanden.");
     }
 });
 
@@ -127,7 +151,7 @@ app.post('/pkTeam', jsonParser, function(req, res){
     pkTeam.push(req.body);
     res.type('plain').send('PkTeam erfolgreich gesetzt.');
     i = 1;
-    if( i == 0){
+    if( i !== 1){
         data = datax[0]
     } else {
         data = datax[1]
