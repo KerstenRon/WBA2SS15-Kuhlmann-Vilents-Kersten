@@ -132,7 +132,7 @@ app.post('/pkDex', jsonParser, function(req, res){
     res.type('plain').send('Added!');
 //Das persistente Speichern soll durch die Node.js Methode 'fs.writeFile()' des 'File System' Moduls erfolgen.
     i = 0;
-    if( i == 0){
+    if( i !== 0){
         data = datax[0]
     } else {
         data = datax[1]
@@ -157,7 +157,7 @@ app.post('/pkTeam', jsonParser, function(req, res){
         data = datax[1]
     }
 
-    save = JSON.stringify({pkdexGen1:pkDex});
+    save = JSON.stringify({pkTeam:pkTeam});
     fs.writeFile(data, save, function(err){
         if(err){
             return console.log(err);
