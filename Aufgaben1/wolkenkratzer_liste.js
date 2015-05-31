@@ -3,7 +3,15 @@ var file = __dirname + '/wolkenkratzer.json';
 
 fs.readFile(file, function (err, data) {
     if(err) {
+<<<<<<< HEAD
         console.log('Error:' + err);
+=======
+<<<<<<< HEAD
+        console.log('Error:' + err);
+=======
+        console.log("Error:" + err);
+>>>>>>> Zweig-von-Ron
+>>>>>>> Zweig-von-Ron
         return;
     }
         
