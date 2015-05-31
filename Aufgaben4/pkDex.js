@@ -4,13 +4,31 @@ var express = require('express');
 var bodyParser = require('body-parser');
 var jsonParser = bodyParser.json();
 var app = express();
-
+//File-Array in dem der Path aller Dateien gelistet sind.
+var i = 0;
+var datax = new Array();
+datax[0] = __dirname + '/pkDexGen1.json';
+datax[1] = __dirname + '/pkTeam.json';
 //Externe JSON-Dateien mit Node.js | FileSystem('fs') einlesen, damit man diese außerhalb der Serverimplementierung verwalten.
 var fs = require('fs');
-var file = __dirname + '/pkDexGen1.json'
+
 var content;
 function readContent(callback) {
-fs.readFile(file, function (err, data) {
+    fs.readFile(datax[i], function (err, data) {
+        if(err) {
+            return callback(err);
+        }
+        var data = JSON.parse(data);
+        callback(null, data);
+        });
+};
+
+readContent(function (err, content) {
+        pkDex=content.pkdexGen1;
+});
+//pkTeam JSON einlesen
+function readContent2(callback) {
+fs.readFile(datax[1], function (err, data) {
     if(err) {
        return callback(err);
     }
@@ -19,8 +37,8 @@ fs.readFile(file, function (err, data) {
 });
 };
 
-readContent(function (err, content) {
-    pkDex=content.pkdexGen1;
+readContent2(function (err, content) {
+    pkTeam=content.pkTeam;
 });
 
 //GET auf die Indexseite
@@ -45,6 +63,10 @@ app.get('/', function(req, res) {
 //Per GET kann man auf die Datei '/pkDex' zugreifen | Ruckgabe von Status '200' und der JSON 'pkDex'
 app.get('/pkDex', function(req, res){
     res.status(200).json(pkDex);
+});
+//Per GET kann man auf die Datei '/pkTeam' zugreifen.
+app.get('/pkTeam', function(req, res){
+    res.status(200).json(pkTeam);
 });
 //Per GET wird auf eine beliebige 'id' in der JSON 'pkDex' zugegriffen sollte ein Fehler auftreten (z.B.: id nicht vorhanden) wird der Statuscode '404' ausgegeben.
 app.get('/pkDex/:id', jsonParser, function(req, res){
@@ -73,6 +95,23 @@ app.post('/pkDex', jsonParser, function(req, res){
     pkDex.push(req.body);
     res.type('plain').send('Added!');
 });
+//Anlegen eines persönlichen Pkteams in pkTeam
+app.post('/pkTeam',jsonParser, function(req, res){
+        pkTeam.push(req.body);
+        res.type('plain').send('PkTeam erfolgreich gesetzt.');
+});
+
+//Das persistente Speichern soll durch die Node.js Methode 'fs.writeFile()' des 'File System' Moduls erfolgen.
+
+/*fs.writeFile(datax[i], JSON.stringify(file, null, 4), function(err){
+    if(err){
+        console.log('Error:' + err);
+        return;
+    } 
+    else {
+        console.log('It\'s saved!');
+    }
+});*/
 
 //Server erwartet req über Port 1337
 app.listen(1337);
