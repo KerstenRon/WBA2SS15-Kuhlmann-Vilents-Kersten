@@ -1,20 +1,25 @@
 //Das ist unser "PkDex"
 //Einbinden der Module und erstellen von Instanzen
+var http = require('http');
 var express = require('express');
 var bodyParser = require('body-parser');
 var jsonParser = bodyParser.json();
 var app = express();
+
 //File-Array in dem der Path aller Dateien gelistet sind.
+var pkDex;
+var pkTeam;
 var i = 0;
 var datax = new Array();
-datax[0] = __dirname + '/pkDexGen1.json';
+datax[0] = __dirname + '/pkdexGen1.json';
 datax[1] = __dirname + '/pkTeam.json';
+
 //Externe JSON-Dateien mit Node.js | FileSystem('fs') einlesen, damit man diese außerhalb der Serverimplementierung verwalten.
 var fs = require('fs');
-
 var content;
+
 function readContent(callback) {
-    fs.readFile(datax[i], function (err, data) {
+    fs.readFile(datax[0], function (err, data) {
         if(err) {
             return callback(err);
         }
@@ -24,22 +29,46 @@ function readContent(callback) {
 };
 
 readContent(function (err, content) {
-        pkDex=content.pkdexGen1;
+    pkDex=content.pkdexGen1;
+    console.log(pkDex);
 });
+
 //pkTeam JSON einlesen
 function readContent2(callback) {
-fs.readFile(datax[1], function (err, data) {
-    if(err) {
-       return callback(err);
-    }
-    var data = JSON.parse(data);
-    callback(null, data);
-});
+    fs.readFile(datax[1], function (err, data) {
+        if(err) {
+            return callback(err);
+        }
+        var data = JSON.parse(data);
+        callback(null, data);
+    });
 };
 
 readContent2(function (err, content) {
     pkTeam=content.pkTeam;
+    console.log(pkTeam[0]);
 });
+
+//Das persistente Speichern soll durch die Node.js Methode 'fs.writeFile()' des 'File System' Moduls erfolgen.
+//function writeContent(callback) {
+//    var data;
+//    var save;
+//
+//    if( i == 0){
+//        data = datax[0]
+//    } else {
+//        data = datax[1]
+//    }
+//
+//    save = JSON.stringify({pkdexGen1: pkDex});
+//    fs.writeFile(data, save, function(err){
+//        if(err){
+//            return callback (err);
+//        } else {
+//            console.log('It\'s saved!');
+//        }
+//    });
+//};
 
 //GET auf die Indexseite
 app.get('/', function(req, res) {
@@ -64,10 +93,14 @@ app.get('/', function(req, res) {
 app.get('/pkDex', function(req, res){
     res.status(200).json(pkDex);
 });
+
 //Per GET kann man auf die Datei '/pkTeam' zugreifen.
 app.get('/pkTeam', function(req, res){
     res.status(200).json(pkTeam);
 });
+//_________________
+
+//_________________
 //Per GET wird auf eine beliebige 'id' in der JSON 'pkDex' zugegriffen sollte ein Fehler auftreten (z.B.: id nicht vorhanden) wird der Statuscode '404' ausgegeben.
 app.get('/pkDex/:id', jsonParser, function(req, res){
     var id = req.params.id;
@@ -94,24 +127,30 @@ app.get('/pkDex/:id', jsonParser, function(req, res){
 app.post('/pkDex', jsonParser, function(req, res){
     pkDex.push(req.body);
     res.type('plain').send('Added!');
+    i = 0;
+//    var data;
+//    var save;
+//
+//    if( i == 0){
+//        data = datax[0]
+//    } else {
+//        data = datax[1]
+//    }
+//
+//    save = JSON.stringify({pkdexGen1: pkDex});
+//    fs.writeFile(data, save, function(err){
+//        if(err){
+//            return console.log(err);
+//        } 
+//    });
 });
+
 //Anlegen eines persönlichen Pkteams in pkTeam
-app.post('/pkTeam',jsonParser, function(req, res){
-        pkTeam.push(req.body);
-        res.type('plain').send('PkTeam erfolgreich gesetzt.');
+app.post('/pkTeam', jsonParser, function(req, res){
+    pkTeam.push(req.body);
+    res.type('plain').send('PkTeam erfolgreich gesetzt.');
+    i = 1;
 });
-
-//Das persistente Speichern soll durch die Node.js Methode 'fs.writeFile()' des 'File System' Moduls erfolgen.
-
-/*fs.writeFile(datax[i], JSON.stringify(file, null, 4), function(err){
-    if(err){
-        console.log('Error:' + err);
-        return;
-    } 
-    else {
-        console.log('It\'s saved!');
-    }
-});*/
 
 //Server erwartet req über Port 1337
 app.listen(1337);
