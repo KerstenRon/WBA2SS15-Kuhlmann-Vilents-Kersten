@@ -1,0 +1,24 @@
+{
+  "name": "Aufgaben3",
+  "version": "1.0.0",
+  "description": "Hier ist das Ergebins aller Aufgaben, es ist ein kleines Programm das eine JSON einliesst sortiert und abspeichert",
+  "main": "wolkenkratzer_liste_sortiert.js",
+  "dependencies": {
+    "chalk": "^1.0.0",
+    "fs": "^0.0.2"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/KerstenRon/WBA2SS15-Kuhlmann-Vilents-Kersten"
+  },
+  "author": "Jan Kuhlmann Leonid Vilents Ron Kersten",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/KerstenRon/WBA2SS15-Kuhlmann-Vilents-Kersten/issues"
+  },
+  "homepage": "https://github.com/KerstenRon/WBA2SS15-Kuhlmann-Vilents-Kersten"
+}
