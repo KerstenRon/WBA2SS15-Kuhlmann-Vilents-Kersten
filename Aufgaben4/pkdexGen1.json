@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 { "pkdexGen1":[{"id":"001",
                 "name":"Bisasam",
                 "typ1":"Pflanze",
@@ -99,3 +100,6 @@
                 "typ2":"",
                 "bes":"Dicke Ratte"}
               ]}
+=======
+{"pkdexGen1":[{"index":"001","name":"Bisasam","typ1":"Pflanze","typ2":"Gift","bes":"Zwiebelkröte"},{"index":"002","name":"Bisaknosp","typ1":"Pflanze","typ2":"Gift","bes":"Knospenkröte"},{"index":"003","name":"Bisaflor","typ1":"Pflanze","typ2":"Gift","bes":"Ultra-BADASS-Kröte"},{"index":"004","name":"Glumanda","typ1":"Feuer","typ2":"","bes":"Feuerechse"},{"index":"005","name":"Glutexo","typ1":"Feuer","typ2":"","bes":"Feuerraptor"},{"index":"006","name":"Glurak","typ1":"Feuer","typ2":"","bes":"Feuerdrache"},{"index":"007","name":"Schiggi","typ1":"Wasser","typ2":"","bes":"Slowmo-Schildkröte"},{"index":"008","name":"Schillog","typ1":"Wasser","typ2":"","bes":"Babokröte"},{"index":"009","name":"Turtok","typ1":"Wasser","typ2":"","bes":"Tankkröte"}]}
+>>>>>>> aea891d60fbcac8de815004af0c489025528100c
