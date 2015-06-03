@@ -69,16 +69,29 @@ app.get('/', function(req, res) {
 });
 
 //Per GET kann man auf die Datei '/pkTeam' zugreifen.
-app.get('/pkTeam', function(req, res){
+//app.get('/pkTeam', function(req, res){
+//    res.status(200).json(pkTeam);
+//});
+
+app.get('/pkTeam', function(req, res) {
+    var length = Object.keys(pkTeam).length;
+    console.log(length);
+    for (var j = 0; j < length; j++) {
+            console.log(pkTeam[j]);
+        
+    }
     res.status(200).json(pkTeam);
 });
 
 //Per GET wird auf eine beliebige 'id' in der JSON 'pkDex' zugegriffen sollte ein Fehler auftreten (z.B.: id nicht vorhanden) wird der Statuscode '404' ausgegeben.
-app.get('/pkDex/:index', jsonParser, function(req, res){
+app.get('/pkTeam/:index', jsonParser, function(req, res){
     var index = req.params.index;
-    console.log("Die Angeforderte id ist: "+index);
+    console.log("Die Angeforderte Team ist: Team"+index);
     
-    var filt = pkDex.filter(function(value, i, arr){
+    var filt = pkTeam.filter(function(value, i, arr){
+        //var v = 'mem'+1;
+        //console.log(typeof(v));
+        //console.log(pkTeam[0].team[0].v);
         return value.index == index;
     });
     
@@ -116,17 +129,12 @@ app.get('/pkDex', function(req, res) {
     
     else {
         res.json(pkDex);
-        console.log(pkDex + "Der gesuchte Index ist NICHT vorhanden.");
+        console.log(pkDex);
     }
 });
 
 //Per POST können neue Objekte(Einträge) an die JSON 'pkDex' angehangen werden. Dabei sollte die Syntax...
-    //{"id":"xxx",
-    // "name":"string",
-    // "typ1":"string",
-    // "typ2":"string",
-    // "des":"string"}
-//...beachtet werden.
+    //{"id":"xxx","name":"string","typ1":"string","typ2":"string","des":"string"}...beachtet werden.
 app.post('/pkDex', jsonParser, function(req, res){
     pkDex.push(req.body);
     res.type('plain').send('Added!');
@@ -147,6 +155,8 @@ app.post('/pkDex', jsonParser, function(req, res){
 });
 
 //Anlegen eines persönlichen Pkteams in pkTeam
+//Syntax...
+//{"index":"x", "team":[{"mem1":"yyy"},...,{"mem6":"yyy"}]}
 app.post('/pkTeam', jsonParser, function(req, res){
     pkTeam.push(req.body);
     res.type('plain').send('PkTeam erfolgreich gesetzt.');
@@ -164,6 +174,5 @@ app.post('/pkTeam', jsonParser, function(req, res){
         } 
     });
 });
-
 //Server erwartet req über Port 1337
 app.listen(1337);
