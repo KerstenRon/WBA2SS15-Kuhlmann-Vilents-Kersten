@@ -171,11 +171,22 @@ app.get('/pkTeam', function(req, res) {
     }
     res.status(200).json(pkTeam);
 });
+<<<<<<< HEAD
+//Per GET wird auf eine beliebige 'index' in der JSON 'pkDex' zugegriffen sollte ein Fehler auftreten (z.B.: index nicht vorhanden) wird der Statuscode '404' ausgegeben.
+app.get('/pkDex/:id', jsonParser, function(req, res){
+    var id = req.params.id;
+    console.log("Die Angeforderte id ist: "+id);
+=======
 
 //Per GET wird auf eine beliebige 'id' in der JSON 'pkDex' zugegriffen sollte ein Fehler auftreten (z.B.: id nicht vorhanden) wird der Statuscode '404' ausgegeben.
 app.get('/pkTeam/:index', jsonParser, function(req, res){
     var index = req.params.index;
+<<<<<<< HEAD
     console.log("Die Angeforderte Team ist: Team"+index);
+=======
+    console.log("Die Angeforderte id ist: "+index);
+>>>>>>> aea891d60fbcac8de815004af0c489025528100c
+>>>>>>> 82e0313faad60820c30b7a53296e07e35e6b87c1
     
     var filt = pkTeam.filter(function(value, i, arr){
         //var v = 'mem'+1;
@@ -238,7 +249,16 @@ app.get('/pkDex', function(req, res) {
 });
 
 //Per POST können neue Objekte(Einträge) an die JSON 'pkDex' angehangen werden. Dabei sollte die Syntax...
+<<<<<<< HEAD
     //{"id":"xxx","name":"string","typ1":"string","typ2":"string","des":"string"}...beachtet werden.
+=======
+    //{"index":"xxx",
+    // "name":"string",
+    // "typ1":"string",
+    // "typ2":"string",
+    // "des":"string"}
+//...beachtet werden.
+>>>>>>> 82e0313faad60820c30b7a53296e07e35e6b87c1
 app.post('/pkDex', jsonParser, function(req, res){
     pkDex.push(req.body);
     res.type('plain').send('Added!');
