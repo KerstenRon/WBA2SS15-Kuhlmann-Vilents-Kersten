@@ -62,8 +62,7 @@ function readContent3(callback) {
 readContent3(function (err, content) {
     pkUser=content.pkUser;
 });
-
-//GET 
+/*-----GET-----*/
 //Startseite
 app.get('/', function(req, res) { 
     var acceptType = req.accepts(['html', 'json']);
@@ -79,7 +78,6 @@ app.get('/', function(req, res) {
     }
 });
 
-//GET 
 //Liste aller pkTeams anfordern
 app.get('/pkTeam', function(req, res) {
     var length = Object.keys(pkTeam).length;
@@ -89,7 +87,6 @@ app.get('/pkTeam', function(req, res) {
     res.status(200).json(pkTeam);
 });
 
-//GET 
 //Liste aller Pokemón im pkDexGen1 anfordern
 app.get('/pkDex', function(req, res) {
     var length = Object.keys(pkDex).length;
@@ -99,7 +96,6 @@ app.get('/pkDex', function(req, res) {
     res.status(200).json(pkDex);
 });
 
-//GET 
 //Liste aller pkUser anfordern
 app.get('/pkUser', function(req, res) {
     var length = Object.keys(pkUser).length;
@@ -109,9 +105,8 @@ app.get('/pkUser', function(req, res) {
     res.status(200).json(pkUser);
 });
 
-//Per GET wird auf eine beliebige 'sign' in der JSON 'pkTeam' zugegriffen sollte ein Fehler auftreten (z.B.: id nicht vorhanden) wird der Statuscode '404' ausgegeben.
-//GET
-//sign
+
+//Sign anfordern
 app.get('/pkTeam/:sign', jsonParser, function(req, res){
     var sign = req.params.sign;
     var length = Object.keys(pkTeam).length;
@@ -153,7 +148,6 @@ app.get('/pkTeam/:sign', jsonParser, function(req, res){
         res.status(404).end();    
 });
 
-//GET
 //Anfordern der Unterressourcen pkDex/:prm von pkDexGen1 
 //pathparams 
 app.get('/pkDex/:prm', function(req, res){
@@ -192,7 +186,6 @@ app.get('/pkDex/:prm', function(req, res){
     }
 });
 
-//GET
 //Anfordern der Unterressourcen pKUser/:prm von pkUser 
 //pathparams 
 app.get('/pkUser/:prm', function(req, res){
@@ -202,7 +195,7 @@ app.get('/pkUser/:prm', function(req, res){
     var i = 0;
     if(usr !== prm){
         while (i<length){
-            var usrid = pkUser[i].user[0].Nik;
+            var usrid = pkUser[i].user[0].sign;
             var usrname = pkUser[i].user[1].name;
             var usratr = pkUser[i].user[2].atr;
             var usrset = "Id: " + usrid + ", Name: " + usrname + ", Atr: " + usratr
@@ -223,7 +216,8 @@ app.get('/pkUser/:prm', function(req, res){
     }
 });
 
-//POST
+/*-----POST-----*/
+
 //Anlegen eines neuen Pokémon
 //Syntax
 //{"pkm":[{"id":"xxx","name":"string","typ1":"string","typ2":"string","des":"string"}]}
@@ -244,7 +238,6 @@ app.post('/pkDex', jsonParser, function(req, res){
     });
 });
 
-//POST
 //Anlegen eines persönlichen pkTeams 
 //Syntax
 //{"team":[{"index":"x", "team":[{"mem1":"yyy"},...,{"mem6":"yyy"}]}
@@ -265,7 +258,6 @@ app.post('/pkTeam', jsonParser, function(req, res){
     });
 });
 
-//POST 
 //Anlegen eines neuen Users
 //Syntax
 //{"user":[{"Nik":"xxx"}, {"name":"String"}, {"atr":"String"}]}
@@ -278,7 +270,7 @@ app.post('/pkUser', jsonParser, function(req, res){
     } else {
         data = datax[1]
     }
-    save = JSON.stringify({pkTeam:pkTeam});
+    save = JSON.stringify({pkUser:pkUser});
     fs.writeFile(data, save, function(err){
         if(err){
             return console.log(err);
@@ -286,5 +278,43 @@ app.post('/pkUser', jsonParser, function(req, res){
     });
 });
 
+/*-----PUT-----*/
+
+//Ändern einer pkUser-Ressource
+app.put('/pkUser/:sign', jsonParser, function(req, res){
+    for(prm in req.body){
+        data[prm] = req.body[prm];
+    }
+    save = JSON.stringify({pkUser:pkUser});
+    fs.writeFile(data, save, function(err){
+        if(err){
+            return console.log(err);
+        }
+    });
+});
+
+//Ändern einer pkTeam-Ressource
+app.put('/pkTeam/:sign', jsonParser, function(req, res){
+    for(prm in req.body){
+        data[prm] = req.body[prm];
+    }
+    save = JSON.stringify({pkTeam:pkTeam});
+    fs.writeFile(data, save, function(err){
+        if(err){
+            return console.log(err);
+        }
+    });
+});
+
+/*-----DELETE-----*/
+
+//Löschen einer pkUser-Ressource
+app.delete('/pkUser', jsonParser, function(req, res){
+    fs.unlinkSync(req.body);
+    console.log("Gelöscht");
+});
+    
+    
+    
 //Server erwartet req über Port 1337
 app.listen(1337);
