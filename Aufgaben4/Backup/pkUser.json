@@ -1,8 +1,8 @@
-{"pkUser":[{"user":[{"Nik":"123"},
+{"pkUser":[{"user":[{"sign":"123"},
                     {"name":"Hans"},
                     {"atr":"none"}
                    ]},
-           {"user":[{"Nik":"452"},
+           {"user":[{"sign":"452"},
                     {"name":"Ash"},
                     {"atr":"none"}
                    ]}

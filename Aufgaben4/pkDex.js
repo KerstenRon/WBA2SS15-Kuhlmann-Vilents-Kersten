@@ -106,7 +106,7 @@ app.get('/pkUser', function(req, res) {
 });
 
 
-//Sign anfordern
+//Team des Users mit seiner Signatur (sign) anfordern
 app.get('/pkTeam/:sign', jsonParser, function(req, res){
     var sign = req.params.sign;
     var length = Object.keys(pkTeam).length;
@@ -115,14 +115,6 @@ app.get('/pkTeam/:sign', jsonParser, function(req, res){
     if(team !== sign){
         while(i<length){
             var teamsign = pkTeam[i].team[0].sign;
-            //var mem1 = pkTeam[i].team[1].mem;
-            //index aus pkTeam mit Daten aus pkDex tauschen...noch nicht funktionsfähig!
-            /*for(var j = 0; j<Object.keys(pkDex).length ; j++){
-                if ( mem1 === pkDex[j].pkm[0].index){
-                    mem1 = pkDex[j];
-                }
-            }
-            console.log(mem1);*/
             var mem1 = pkTeam[i].team[1].mem;
             var mem2 = pkTeam[i].team[2].mem;
             var mem3 = pkTeam[i].team[3].mem;
@@ -130,13 +122,6 @@ app.get('/pkTeam/:sign', jsonParser, function(req, res){
             var mem5 = pkTeam[i].team[5].mem;
             var mem6 = pkTeam[i].team[6].mem;
             var teamset = "Trainersignatur: " + teamsign + ", Teammitglied 1: " + mem1 + ", Teammitglied 2: " + mem2 + ", Teammitglied 3: " + mem3 + ", Teammitglied 4: " + mem4 + ", Teammitglied 5: " + mem5 + ", Teammitglied 6: " + mem6 ;
-            //prüfen ob User mehrere Teams hat und diese in ausgabe speichern und ausgeben!
-            /*var teamarr = new Array();
-            teamarr[i] = teamset;
-            for(var x = 0; x < teamarr.length; x++){
-                console.log(teamarr[x]);
-            }
-            var ausgabe = teamarr[i++];*/
             if(teamsign === sign){
                 i = length;
                 res.status(200).json(teamset);
@@ -148,8 +133,7 @@ app.get('/pkTeam/:sign', jsonParser, function(req, res){
         res.status(404).end();    
 });
 
-//Anfordern der Unterressourcen pkDex/:prm von pkDexGen1 
-//pathparams 
+//Anfordern der Unterressourcen pkDex/:prm von pkDexGen1  
 app.get('/pkDex/:prm', function(req, res){
     var prm = req.params.prm;
     var length = Object.keys(pkDex).length;
@@ -187,7 +171,6 @@ app.get('/pkDex/:prm', function(req, res){
 });
 
 //Anfordern der Unterressourcen pKUser/:prm von pkUser 
-//pathparams 
 app.get('/pkUser/:prm', function(req, res){
     var prm = req.params.prm;
     var length = Object.keys(pkUser).length;
@@ -217,19 +200,16 @@ app.get('/pkUser/:prm', function(req, res){
 });
 
 /*-----POST-----*/
-
+//Wird nich benötigt
 //Anlegen eines neuen Pokémon
 //Syntax
 //{"pkm":[{"id":"xxx","name":"string","typ1":"string","typ2":"string","des":"string"}]}
 app.post('/pkDex', jsonParser, function(req, res){
     pkDex.push(req.body);
     res.type('plain').send('Pkm erfolgreich gesetzt.');
-    i = 0;
-    if( i !== 0){
+    
         data = datax[0]
-    } else {
-        data = datax[1]
-    }
+    
     save = JSON.stringify({pkdexGen1:pkDex});
     fs.writeFile(data, save, function(err){
         if(err){
@@ -241,21 +221,39 @@ app.post('/pkDex', jsonParser, function(req, res){
 //Anlegen eines persönlichen pkTeams 
 //Syntax
 //{"team":[{"index":"x", "team":[{"mem1":"yyy"},...,{"mem6":"yyy"}]}
+//Verbessert von Ron am 11.08.2015 von 12:28Uhr - 14:17Uhr
 app.post('/pkTeam', jsonParser, function(req, res){
-    pkTeam.push(req.body);
-    res.type('plain').send('PkTeam erfolgreich gesetzt.');
-    i = 1;
-    if( i !== 1){
-        data = datax[0]
-    } else {
-        data = datax[1]
+    var t = 0;
+    var length = Object.keys(pkTeam).length;
+    var bool = false;
+    
+    while (t<length){
+        var newsign = req.body.team[0].sign;
+        var sign=pkTeam[t].team[0].sign;
+        if(newsign !== sign){
+            bool = true;
+            t++;
+        } else {
+            bool = false;
+            t=length;
+        }
     }
-    save = JSON.stringify({pkTeam:pkTeam});
-    fs.writeFile(data, save, function(err){
-        if(err){
-            return console.log(err);
-        } 
-    });
+        if(bool){
+            pkTeam.push(req.body);
+            data = datax[1];
+            
+            save = JSON.stringify({pkTeam:pkTeam});
+            fs.writeFile(data, save, function(err){
+                if(err){
+                    return console.log(err);
+                } 
+            });
+            t=length;
+            res.type('plain').send('PkTeam erfolgreich gesetzt.');
+        } else {
+            res.type('plain').send('Der Trainer: ' + newsign + ' besitzt schon ein pkTeam');
+        }
+    res.status(500).end('Das Team konnte nicht gesetzt werden');
 });
 
 //Anlegen eines neuen Users
@@ -264,12 +262,9 @@ app.post('/pkTeam', jsonParser, function(req, res){
 app.post('/pkUser', jsonParser, function(req, res){
     pkUser.push(req.body);
     res.type('plain').send('pkUser erfolgreich gesetzt.');
-    i = 1;
-    if( i !== 1){
-        data = datax[0]
-    } else {
-        data = datax[1]
-    }
+    
+        data = datax[2]
+        
     save = JSON.stringify({pkUser:pkUser});
     fs.writeFile(data, save, function(err){
         if(err){
@@ -281,37 +276,144 @@ app.post('/pkUser', jsonParser, function(req, res){
 /*-----PUT-----*/
 
 //Ändern einer pkUser-Ressource
-app.put('/pkUser/:sign', jsonParser, function(req, res){
-    for(prm in req.body){
-        data[prm] = req.body[prm];
-    }
-    save = JSON.stringify({pkUser:pkUser});
-    fs.writeFile(data, save, function(err){
-        if(err){
-            return console.log(err);
+//Geändert von Ron am 11.08.2015 von 9:34Uhr - 12:07Uhr EZ!!
+app.put('/pkUser/:prm', jsonParser, function(req, res){
+    var prm = req.params.prm;
+    var length = Object.keys(pkUser).length;
+    var i = 0;
+    var usr;
+    data = datax[2];
+    console.log("Hier: "+ req.body.user[0].sign + req.body.user[1].name + req.body.user[2].atr);
+    if(usr !== prm){
+        while (i<length){
+            var usrid = pkUser[i].user[0].sign;
+            var usrname = pkUser[i].user[1].name;
+            var usratr = pkUser[i].user[2].atr;
+            var usrset = "message" + ":" + "Der User wurde erfolgreich bearbeitet." 
+            if(usrid === prm){
+                //Aktualisierung findet HIER statt!
+                pkUser[i].user[0].sign = req.body.user[0].sign;
+                pkUser[i].user[1].name = req.body.user[1].name;
+                pkUser[i].user[2].atr = req.body.user[2].atr;
+                //Aktualisierung wird HIER gespeichert!
+                save = JSON.stringify({pkUser:pkUser});       
+                fs.writeFile(data, save, function(err){
+                    if(err){
+                        return console.log(err);
+                    } 
+                });
+                //ENDE der while-Schleife i=Länge.Objekt Objekt=pkUser.json
+                i = length;
+                //Client erhält Response Daten wurden erfolgreich(200) bearbeitet!
+                res.status(200).json(usrset);
+            } else if(usrname === prm){
+                //Aktualisierung findet HIER statt!
+                pkUser[i].user[0].sign = req.body.user[0].sign;
+                pkUser[i].user[1].name = req.body.user[1].name;
+                pkUser[i].user[2].atr = req.body.user[2].atr;
+                //Aktualisierung wird HIER gespeichert!
+                save = JSON.stringify({pkUser:pkUser});
+                fs.writeFile(data, save, function(err){
+                    if(err){
+                        return console.log(err);
+                    } 
+                });
+                //ENDE der while-Schleife i=Länge.Objekt Objekt=pkUser.json
+                i = length;
+                //Client erhält Response Daten wurden erfolgreich(200) bearbeitet!
+                res.status(200).json(usrset);
+            } else if(usratr === prm){
+                //Aktualisierung findet HIER statt!
+                pkUser[i].user[0].sign = req.body.user[0].sign;
+                pkUser[i].user[1].name = req.body.user[1].name;
+                pkUser[i].user[2].atr = req.body.user[2].atr;
+                //Aktualisierung wird HIER gespeichert!
+                save = JSON.stringify({pkUser:pkUser});
+                fs.writeFile(data, save, function(err){
+                    if(err){
+                        return console.log(err);
+                    } 
+                });
+                //ENDE der while-Schleife i=Länge.Objekt Objekt=pkUser.json
+                i = length;
+                //Client erhält Response Daten wurden erfolgreich(200) bearbeitet!
+                res.status(200).json(usrset);
+            } else {
+                i++;
+            }
         }
-    });
+        //Client erhält Response Daten wurden nicht gefunden(404)
+        res.status(404).end("User wurde nicht gefunden.");
+    }
 });
 
 //Ändern einer pkTeam-Ressource
 app.put('/pkTeam/:sign', jsonParser, function(req, res){
-    for(prm in req.body){
-        data[prm] = req.body[prm];
-    }
-    save = JSON.stringify({pkTeam:pkTeam});
-    fs.writeFile(data, save, function(err){
-        if(err){
-            return console.log(err);
+    var sign = req.params.sign;
+    var length = Object.keys(pkTeam).length;
+    var team;
+    var i = 0;
+    if(team !== sign){
+        while(i<length){
+            var teamsign = pkTeam[i].team[0].sign;
+            if(teamsign === sign){
+            pkTeam[i].team[1].mem = req.body.team[1].mem
+            pkTeam[i].team[2].mem = req.body.team[2].mem
+            pkTeam[i].team[3].mem = req.body.team[3].mem
+            pkTeam[i].team[4].mem = req.body.team[4].mem
+            pkTeam[i].team[5].mem = req.body.team[5].mem
+            pkTeam[i].team[6].mem = req.body.team[6].mem
+                i = length;
+                res.status(200).json("Das Team wurde erfolgreich angepasst");
+            } else {
+                i++;
+            }
         }
-    });
+    }
+        res.status(404).end("Das PkTeam mit der Signatur: "+ sign + " konnte nicht gefunden werden.");    
 });
 
 /*-----DELETE-----*/
 
 //Löschen einer pkUser-Ressource
-app.delete('/pkUser', jsonParser, function(req, res){
-    fs.unlinkSync(req.body);
-    console.log("Gelöscht");
+//Verbessert von Ron am 11.08.2015 von 14:17Uhr - 15:22Uhr
+app.delete('/pkUser/:sign', jsonParser, function(req, res){
+    var sign = req.params.sign;
+    var length = Object.keys(pkUser).length;
+    var i = 0;
+    var bool = false;
+    var data = datax[2];
+    var key;
+    
+        while(i<length){
+            var usrsign = pkUser[i].user[0].sign;
+            console.log(usrsign);
+            if(usrsign === sign){
+                bool = true;
+                key = i;
+                i=length;     
+            } else {
+                bool = false;
+                i++;
+            }
+        }
+        if(bool){
+            console.log(pkUser[key]);
+            pkUser[key] = null;
+            delete pkUser[key];
+            
+            save = JSON.stringify({pkUser:pkUser});
+            fs.writeFile(data, save, function(err){
+                if(err){
+                    return console.log(err);
+                } 
+            });
+            i=length;
+            res.type('plain').send('Der User wurde erfolgreich gelöscht.');
+        } else {
+            res.type('plain').send('Der User ' + sign + ' existiert nicht');
+        }
+    res.status(404).end("Der pkUser" + sign + "konnte nicht gelöscht werden.");
 });
     
     
