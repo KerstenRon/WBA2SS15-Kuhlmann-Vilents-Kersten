@@ -223,6 +223,7 @@ app.post('/pkDex', jsonParser, function(req, res){
 //{"team":[{"index":"x", "team":[{"mem1":"yyy"},...,{"mem6":"yyy"}]}
 //Verbessert von Ron am 11.08.2015 von 12:28Uhr - 14:17Uhr
 app.post('/pkTeam', jsonParser, function(req, res){
+<<<<<<< HEAD
     var t = 0;
     var length = Object.keys(pkTeam).length;
     var bool = false;
@@ -254,6 +255,19 @@ app.post('/pkTeam', jsonParser, function(req, res){
             res.type('plain').send('Der Trainer: ' + newsign + ' besitzt schon ein pkTeam');
         }
     res.status(500).end('Das Team konnte nicht gesetzt werden');
+=======
+    pkTeam.push(req.body);
+    res.type('plain').send('PkTeam erfolgreich gesetzt.');
+    
+        data = datax[1]
+    
+    save = JSON.stringify({pkTeam:pkTeam});
+    fs.writeFile(data, save, function(err){
+        if(err){
+            return console.log(err);
+        } 
+    });
+>>>>>>> origin/master
 });
 
 //Anlegen eines neuen Users
