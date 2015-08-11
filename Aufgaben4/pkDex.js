@@ -106,11 +106,7 @@ app.get('/pkUser', function(req, res) {
 });
 
 
-<<<<<<< HEAD
 //Team des Users mit seiner Signatur (sign) anfordern
-=======
-//Sign anfordern
->>>>>>> 008c7b0db5f5f37950f8f71c0414fe032d065fc1
 app.get('/pkTeam/:sign', jsonParser, function(req, res){
     var sign = req.params.sign;
     var length = Object.keys(pkTeam).length;
@@ -119,17 +115,6 @@ app.get('/pkTeam/:sign', jsonParser, function(req, res){
     if(team !== sign){
         while(i<length){
             var teamsign = pkTeam[i].team[0].sign;
-<<<<<<< HEAD
-=======
-            //var mem1 = pkTeam[i].team[1].mem;
-            //index aus pkTeam mit Daten aus pkDex tauschen...noch nicht funktionsfähig!
-            /*for(var j = 0; j<Object.keys(pkDex).length ; j++){
-                if ( mem1 === pkDex[j].pkm[0].index){
-                    mem1 = pkDex[j];
-                }
-            }
-            console.log(mem1);*/
->>>>>>> 008c7b0db5f5f37950f8f71c0414fe032d065fc1
             var mem1 = pkTeam[i].team[1].mem;
             var mem2 = pkTeam[i].team[2].mem;
             var mem3 = pkTeam[i].team[3].mem;
@@ -148,12 +133,7 @@ app.get('/pkTeam/:sign', jsonParser, function(req, res){
         res.status(404).end();    
 });
 
-<<<<<<< HEAD
 //Anfordern der Unterressourcen pkDex/:prm von pkDexGen1  
-=======
-//Anfordern der Unterressourcen pkDex/:prm von pkDexGen1 
-//pathparams 
->>>>>>> 008c7b0db5f5f37950f8f71c0414fe032d065fc1
 app.get('/pkDex/:prm', function(req, res){
     var prm = req.params.prm;
     var length = Object.keys(pkDex).length;
@@ -191,10 +171,6 @@ app.get('/pkDex/:prm', function(req, res){
 });
 
 //Anfordern der Unterressourcen pKUser/:prm von pkUser 
-<<<<<<< HEAD
-=======
-//pathparams 
->>>>>>> 008c7b0db5f5f37950f8f71c0414fe032d065fc1
 app.get('/pkUser/:prm', function(req, res){
     var prm = req.params.prm;
     var length = Object.keys(pkUser).length;
@@ -224,29 +200,16 @@ app.get('/pkUser/:prm', function(req, res){
 });
 
 /*-----POST-----*/
-<<<<<<< HEAD
 //Wird nich benötigt
-=======
-
->>>>>>> 008c7b0db5f5f37950f8f71c0414fe032d065fc1
 //Anlegen eines neuen Pokémon
 //Syntax
 //{"pkm":[{"id":"xxx","name":"string","typ1":"string","typ2":"string","des":"string"}]}
 app.post('/pkDex', jsonParser, function(req, res){
     pkDex.push(req.body);
     res.type('plain').send('Pkm erfolgreich gesetzt.');
-<<<<<<< HEAD
     
         data = datax[0]
     
-=======
-    i = 0;
-    if( i !== 0){
-        data = datax[0]
-    } else {
-        data = datax[1]
-    }
->>>>>>> 008c7b0db5f5f37950f8f71c0414fe032d065fc1
     save = JSON.stringify({pkdexGen1:pkDex});
     fs.writeFile(data, save, function(err){
         if(err){
@@ -361,59 +324,6 @@ app.put('/pkUser/:prm', jsonParser, function(req, res){
         //Client erhält Response Daten wurden nicht gefunden(404)
         res.status(404).end("User wurde nicht gefunden.");
     }
-<<<<<<< HEAD
-});
-
-//Ändern einer pkTeam-Ressource
-app.put('/pkTeam/:sign', jsonParser, function(req, res){
-    for(prm in req.body){
-        data[prm] = req.body[prm];
-    }
-=======
->>>>>>> 008c7b0db5f5f37950f8f71c0414fe032d065fc1
-    save = JSON.stringify({pkTeam:pkTeam});
-    fs.writeFile(data, save, function(err){
-        if(err){
-            return console.log(err);
-        }
-    });
-});
-
-<<<<<<< HEAD
-=======
-//Anlegen eines neuen Users
-//Syntax
-//{"user":[{"Nik":"xxx"}, {"name":"String"}, {"atr":"String"}]}
-app.post('/pkUser', jsonParser, function(req, res){
-    pkUser.push(req.body);
-    res.type('plain').send('pkUser erfolgreich gesetzt.');
-    i = 1;
-    if( i !== 1){
-        data = datax[0]
-    } else {
-        data = datax[1]
-    }
-    save = JSON.stringify({pkUser:pkUser});
-    fs.writeFile(data, save, function(err){
-        if(err){
-            return console.log(err);
-        } 
-    });
-});
-
-/*-----PUT-----*/
-
-//Ändern einer pkUser-Ressource
-app.put('/pkUser/:sign', jsonParser, function(req, res){
-    for(prm in req.body){
-        data[prm] = req.body[prm];
-    }
-    save = JSON.stringify({pkUser:pkUser});
-    fs.writeFile(data, save, function(err){
-        if(err){
-            return console.log(err);
-        }
-    });
 });
 
 //Ändern einer pkTeam-Ressource
@@ -429,7 +339,6 @@ app.put('/pkTeam/:sign', jsonParser, function(req, res){
     });
 });
 
->>>>>>> 008c7b0db5f5f37950f8f71c0414fe032d065fc1
 /*-----DELETE-----*/
 
 //Löschen einer pkUser-Ressource
