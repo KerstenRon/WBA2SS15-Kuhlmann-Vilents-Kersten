@@ -1,0 +1,16 @@
+1. Client
+1.1. Präsentationslogik
+1.1.1. HTML
+1.2. Anwendungslogik
+1.2.1. Click-Counter
+
+2. Server
+2.1. HTTP-Verben
+2.1.1. GET
+2.1.2. PUT
+2.1.3. POST
+2.1.4. DELETE
+2.2. Anwendungslogik
+2.2.1. Click-Compare
+2.2.2. Record-Compare
+2.3. Ressourcen

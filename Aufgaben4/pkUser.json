@@ -1,9 +1,1 @@
-{"pkUser":[{"user":[{"Nik":"123"},
-                    {"name":"Hans"},
-                    {"atr":"none"}
-                   ]},
-           {"user":[{"Nik":"452"},
-                    {"name":"Ash"},
-                    {"atr":"none"}
-                   ]}
-          ]}
+{"pkUser":[{"user":[{"sign":"123"},{"name":"Hans"},{"atr":"Arbeitslos"}]},{"user":[{"sign":"452"},{"name":"Ash"},{"atr":"none"}]}]}
