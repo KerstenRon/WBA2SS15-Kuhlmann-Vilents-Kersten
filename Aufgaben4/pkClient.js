@@ -29,8 +29,8 @@ app.get('/pkDex', jsonParser, function(req, res){
                 console.log("Connected");
                 x.on('data', function(chunk){
                     //Verarbeitete Response
-                    var userdata = JSON.parse(chunk);
-                    console.log('Das ist der Chunk: ' + chunk + ' Und das ist der Filestring: ' + filestring);
+                    var userdata = JSON.parse('{ "pkDex": '+ chunk +'}');
+                    console.log('Das ist der Chunk: ' + userdata.pkDex + ' Und das ist der Filestring: ' + filestring);
                     console.log('Mischen und Randern!');
                     var html = ejs.render(filestring, userdata);
                     res.setHeader('content-type', 'text/html');
