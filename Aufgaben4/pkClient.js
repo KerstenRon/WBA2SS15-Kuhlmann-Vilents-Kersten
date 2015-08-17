@@ -7,10 +7,11 @@ var ejs = require('ejs');
 
 var app = express();
 
-app.get('/pkDex', jsonParser, function(req, res){
+app.get('/pkDex', jsonParser, function (req, res) {
+    'use strict';
     console.log('GET eingegangen!');
-    fs.readFile('./pkDex.ejs', {encoding: 'utf-8'} , function(err, filestring){
-        if(err){
+    fs.readFile('./pkDex.ejs', {encoding: 'utf-8'}, function (err, filestring) {
+        if (err) {
             throw err;
         } else {
             console.log('options gesetzt');
@@ -22,16 +23,14 @@ app.get('/pkDex', jsonParser, function(req, res){
                 headers: {
                     accept: 'application/json'
                 }
-            }
+            };
 
             //GET Request
-            var x = http.request(options, function(x) {
+            var x = http.request(options, function (x) {
                 console.log("Connected");
-                x.on('data', function(chunk){
+                x.on('data', function (chunk) {
                     //Verarbeitete Response
                     var userdata = JSON.parse('{ "pkDex": '+ chunk +'}');
-                    console.log('Das ist der Chunk: ' + userdata.pkDex + ' Und das ist der Filestring: ' + filestring);
-                    console.log('Mischen und Randern!');
                     var html = ejs.render(filestring, userdata);
                     res.setHeader('content-type', 'text/html');
                     res.writeHead(200);
@@ -45,6 +44,6 @@ app.get('/pkDex', jsonParser, function(req, res){
         }
     });
 });
-app.listen(3001, function(){
+app.listen(3001, function () {
     console.log("Server listens on Port 3001");
-})
+});
