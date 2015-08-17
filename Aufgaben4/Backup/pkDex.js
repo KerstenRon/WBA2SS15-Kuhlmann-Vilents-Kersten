@@ -6,6 +6,9 @@ var bodyParser = require('body-parser');
 var jsonParser = bodyParser.json();
 var app = express();
 
+app.set('view engine', 'ejs');
+
+
 //File-Array in dem der Path aller Dateien gelistet sind.
 var pkDex;
 var pkTeam;
@@ -88,10 +91,7 @@ app.get('/', function(req, res) {
 //});
 
 app.get('/pkTeam', function(req, res) {
-    var length = Object.keys(pkTeam).length;
-    for (var j = 0; j < length; j++) {
-            console.log(pkTeam[j])  
-    }
+    
     res.status(200).json(pkTeam);
 });
 
@@ -101,18 +101,12 @@ app.get('/pkTeam', function(req, res) {
 //});
 
 app.get('/pkDex', function(req, res) {
-    var length = Object.keys(pkDex).length;
-    for (var j = 0; j < length; j++) {
-            console.log(pkDex[j]);  
-    }
+    
     res.status(200).json(pkDex);
 });
 
 app.get('/pkUser', function(req, res) {
-    var length = Object.keys(pkUser).length;
-    for (var j = 0; j < length; j++) {
-            console.log(pkUser[j]);
-    }
+    
     res.status(200).json(pkUser);
 });
 

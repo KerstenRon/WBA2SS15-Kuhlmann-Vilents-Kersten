@@ -1,0 +1,15 @@
+<html>
+    <head>
+        <title>PkDex</title>
+    </head>
+    <body>
+        <h1>pkDex</h1>
+        <ul>
+            <%
+            pkDex.forEach(function(pkDex) {
+                %><li><%=pkDex.pkm[0].index%></li><%
+            });
+            %>
+        </ul>
+    </body>
+</html>

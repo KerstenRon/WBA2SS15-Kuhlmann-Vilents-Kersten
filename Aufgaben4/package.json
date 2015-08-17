@@ -6,8 +6,10 @@
   "dependencies": {
     "body-parser": "^1.13.3",
     "chalk": "^1.1.0",
+    "ejs": "^2.3.3",
     "express": "^4.13.3",
-    "fs": "0.0.2"
+    "fs": "0.0.2",
+    "http": "0.0.0"
   },
   "devDependencies": {},
   "scripts": {

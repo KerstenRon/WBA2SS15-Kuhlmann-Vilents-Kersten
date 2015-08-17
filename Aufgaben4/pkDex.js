@@ -12,6 +12,7 @@ var i = 0;
 var fs = require('fs');
 var content;
 
+app.set('view engine', 'ejs');
 //File-Array mit Paths der externen Dateien zur persistenten Speicherung von Daten
 var datax = new Array();
 datax[0] = __dirname + '/pkDexGen1.json';
@@ -80,28 +81,19 @@ app.get('/', function(req, res) {
 
 //Liste aller pkTeams anfordern
 app.get('/pkTeam', function(req, res) {
-    var length = Object.keys(pkTeam).length;
-    for (var j = 0; j < length; j++) {
-            console.log(pkTeam[j])  
-    }
+    
     res.status(200).json(pkTeam);
 });
 
 //Liste aller Pokemón im pkDexGen1 anfordern
 app.get('/pkDex', function(req, res) {
-    var length = Object.keys(pkDex).length;
-    for (var j = 0; j < length; j++) {
-            console.log(pkDex[j]);  
-    }
+    
     res.status(200).json(pkDex);
 });
 
 //Liste aller pkUser anfordern
 app.get('/pkUser', function(req, res) {
-    var length = Object.keys(pkUser).length;
-    for (var j = 0; j < length; j++) {
-            console.log(pkUser[j]);
-    }
+    
     res.status(200).json(pkUser);
 });
 
@@ -419,4 +411,6 @@ app.delete('/pkUser/:sign', jsonParser, function(req, res){
     
     
 //Server erwartet req über Port 1337
-app.listen(1337);
+app.listen(3000, function(){
+    console.log("Server listens on Port 3000");
+})
