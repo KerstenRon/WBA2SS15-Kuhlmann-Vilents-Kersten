@@ -146,13 +146,14 @@ app.get('/pkDex/:prm', function(req, res){
             console.log('set: ' + set + 'i: ' + i); 
             
             if(pkid === prm || pkname === prm || pktyp1 === prm || pktyp2 === prm || pkbes === prm){
-                    arr[k] = set;
+                arr[k] = set;
                 console.log(k + ' : ' + arr[k]);
+                for(var y = 0; y<arr.length;y++){
+                    console.log('Position: ' + y + ' : ' + arr[y]);
+                }
                 k++;
                 i++;
-            } else if (pkid !== prm || pkname !== prm || pktyp1 !== prm || pktyp2 !== prm || pkbes !== prm) {
-                i++;
-            } else {
+            } else if (i === length-1) {
                 console.log(laenge);
                 for(j = 0; j< laenge;j++){
                     if(j==0) {
@@ -171,6 +172,8 @@ app.get('/pkDex/:prm', function(req, res){
                 pkset = JSON.parse(pkset);
                 res.status(200).json(pkset);
             
+            } else {
+                i++;    
             }
                 
         }
