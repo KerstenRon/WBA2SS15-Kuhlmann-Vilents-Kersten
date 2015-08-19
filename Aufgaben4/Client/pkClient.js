@@ -9,7 +9,7 @@ var app = express();
 
 //GET pkDex Erarbeitet von Ron, Leon 17.08. 10 - 12Uhr
 app.get('/pkDex', jsonParser, function (req, res) {
-    fs.readFile('./pkDex.ejs', {encoding: 'utf-8'}, function (err, filestring) {
+    fs.readFile('./ejs/pkDex.ejs', {encoding: 'utf-8'}, function (err, filestring) {
         if (err) {
             throw err;
         } else {
@@ -44,7 +44,7 @@ app.get('/pkDex', jsonParser, function (req, res) {
 });
 //GET pkTeam Erarbeitet von Ron, Leon 17.08 10 - 12Uhr
 app.get('/pkTeam', jsonParser, function (req, res) {
-    fs.readFile('./pkTeam.ejs', {encoding: 'utf-8'}, function (err, filestring) {
+    fs.readFile('./ejs/pkTeam.ejs', {encoding: 'utf-8'}, function (err, filestring) {
         if (err) {
             throw err;
         } else {
@@ -79,7 +79,7 @@ app.get('/pkTeam', jsonParser, function (req, res) {
 });
 //GET pkUser Erabeitet von Ron  15.00 - 16.12Uhr
 app.get('/pkUser', jsonParser, function (req, res) {
-    fs.readFile('./pkUser.ejs', {encoding: 'utf-8'}, function (err, filestring) {
+    fs.readFile('./ejs/pkUser.ejs', {encoding: 'utf-8'}, function (err, filestring) {
         if (err) {
             throw err;
         } else {
@@ -116,7 +116,7 @@ app.get('/pkUser', jsonParser, function (req, res) {
 //GET pkUser Erabeitet von Ron am 18.08. 10.00 - 10.25Uhr
 app.get('/pkUser/:sign', jsonParser, function (req, res) {
     var sign = req.params.sign;
-    fs.readFile('./pkUser.ejs', {encoding: 'utf-8'}, function (err, filestring) {
+    fs.readFile('./ejs/pkUser.ejs', {encoding: 'utf-8'}, function (err, filestring) {
         if (err) {
             throw err;
         } else {
@@ -153,7 +153,7 @@ app.get('/pkUser/:sign', jsonParser, function (req, res) {
 //GET pkDex Erabeitet von Ron am 18.08. 10:25 - 10.36Uhr
 app.get('/pkDex/:sign', jsonParser, function (req, res) {
     var sign = req.params.sign;
-    fs.readFile('./pkDex.ejs', {encoding: 'utf-8'}, function (err, filestring) {
+    fs.readFile('./ejs/pkDex.ejs', {encoding: 'utf-8'}, function (err, filestring) {
         if (err) {
             throw err;
         } else {
@@ -190,7 +190,7 @@ app.get('/pkDex/:sign', jsonParser, function (req, res) {
 //GET pkTeam Erabeitet von Ron am 18.08. 10.25- 10.36Uhr
 app.get('/pkTeam/:sign', jsonParser, function (req, res) {
     var sign = req.params.sign;
-    fs.readFile('./pkTeam.ejs', {encoding: 'utf-8'}, function (err, filestring) {
+    fs.readFile('./ejs/pkTeam.ejs', {encoding: 'utf-8'}, function (err, filestring) {
         if (err) {
             throw err;
         } else {

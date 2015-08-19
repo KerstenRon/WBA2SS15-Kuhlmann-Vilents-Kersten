@@ -132,8 +132,7 @@ app.get('/pkDex/:prm', function(req, res){
     var length = Object.keys(pkDex).length;
     var pkm;
     var i = 0;
-    var j;
-    var k = -1;
+    var j, k = 0;
     var arr = new Array;
     var pkset = '';
     
