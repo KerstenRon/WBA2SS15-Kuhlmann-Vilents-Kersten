@@ -1,0 +1,19 @@
+<html>
+    <head>
+        <title>PkDex</title>
+    </head>
+    <body>
+        <h1>pkDex</h1>
+        <ul>
+            <%
+            pkDex.forEach(function(pkDex) {
+                %><li><%=pkDex.pkm[0].index%></li><%
+                %><li><%=pkDex.pkm[1].name%></li><%
+                %><li><%=pkDex.pkm[2].typ1%></li><%
+                %><li><%=pkDex.pkm[3].typ2%></li><%
+                %><li><%=pkDex.pkm[4].bes%></li><%
+            });
+            %>
+        </ul>
+    </body>
+</html>

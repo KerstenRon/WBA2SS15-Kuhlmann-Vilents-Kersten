@@ -15,7 +15,7 @@ var content;
 app.set('view engine', 'ejs');
 //File-Array mit Paths der externen Dateien zur persistenten Speicherung von Daten
 var datax = new Array();
-datax[0] = __dirname + '/pkDex.json';
+datax[0] = __dirname + '/pkDexGen1.json';
 datax[1] = __dirname + '/pkTeam.json';
 datax[2] = __dirname + '/pkUser.json';
 
@@ -31,7 +31,7 @@ function readContent(callback) {
 };
 
 readContent(function (err, content) {
-    pkDex=content.pkDex;
+    pkDex=content.pkDexGen1;
 });
 
 //Externe Datei 'pkTeam.json' einlesen
@@ -136,6 +136,7 @@ app.get('/pkDex/:prm', function(req, res){
     var arr = new Array;
     var pkset = '';
     
+    if(pkm !== prm){
         while (i<length){
             var pkid = pkDex[i].pkm[0].index;
             var pkname = pkDex[i].pkm[1].name;
@@ -143,29 +144,46 @@ app.get('/pkDex/:prm', function(req, res){
             var pktyp2 = pkDex[i].pkm[3].typ2;
             var pkbes = pkDex[i].pkm[4].bes;
             var set = '{"pkm":[{"index":"'+pkid+'"},' + '{"name":"'+pkname+'"},' + '{"typ1":"'+pktyp1+'"},'+ '{"typ2":"'+pktyp2+'"},'+ '{"bes":"'+pkbes+'"}]}'
-            console.log(' set: ' + set + ' i: ' + i + ' Listenlänge: ' + length); 
+            console.log('set: ' + set + 'i: ' + i);
+            var setcompare = new String(set); 
             
             if(pkid === prm || pkname === prm || pktyp1 === prm || pktyp2 === prm || pkbes === prm){
-                arr[k] = set;
-                console.log(k + ' : ' + arr[k]);
-                for(var y = 0; y<arr.length;y++){
-                    console.log('Position: ' + y + ' : ' + arr[y]);
+                for (k;k < i;k++){
+                    k++;
+                    var arrcompare = new String(arr[k]);
+                    if(arrcompare.localeCompare(setcompare) ){
+                        arr[k+1]=set;
+                        console.log('arr in Durchlauf' + k)
+                        for ( var x = 0; x < arr.length;x++){
+                            console.log(x + arr[x]);
+                        }
+                        var laenge = arr.length;
+                        i++;
+                        k = i;
+                    } else {
+                        arr[k]=set;
+                        console.log('arr in Durchlauf' + k)
+                        for ( var x = 0; x < arr.length;x++){
+                            console.log(x + arr[x]);
+                        }
+                        var laenge = arr.length;
+                        i++;
+                        k = i;
+                    }
                 }
-                k++;
-                i++;
-            } else if (i === length-1) {
                 
-                for(j = 0; j< arr.length;j++){
-                    if(arr.length == 1) {
-                        pkset += '[' + arr[j] + ']';
-                        console.log(j + ' arr.length === 1' );
-                    } else if (j==0){
+            } else if (pkid !== prm || pkname !== prm || pktyp1 !== prm || pktyp2 !== prm || pkbes !== prm) {
+                i++;
+            } else {
+                console.log(laenge);
+                for(j = 0; j< laenge;j++){
+                    if(j==0) {
                         pkset += '[' + arr[j] + ',';
                         console.log(j + ' j==0' );
-                    } else if (j < arr.length-1 ) { 
+                    } else if (j < laenge-1){
                         pkset += arr[j] + ',';
-                        console.log(j + ' j < arr.lenght');  
-                    } else {
+                        console.log(j + ' j < arr.lenght');
+                    } else { 
                         pkset += arr[j] + ']';
                         console.log(j + ' j < arr.lenght');
                     }
@@ -175,13 +193,11 @@ app.get('/pkDex/:prm', function(req, res){
                 pkset = JSON.parse(pkset);
                 res.status(200).json(pkset);
             
-            } else {
-                i++;    
             }
                 
         }
-          
             res.status(404).end();
+    }
 });
 
 //Anfordern der Unterressourcen pKUser/:prm von pkUser 
@@ -225,7 +241,7 @@ app.post('/pkDex', jsonParser, function(req, res){
     
         data = datax[0]
     
-    save = JSON.stringify({pkDex:pkDex});
+    save = JSON.stringify({pkdexGen1:pkDex});
     fs.writeFile(data, save, function(err){
         if(err){
             return console.log(err);
