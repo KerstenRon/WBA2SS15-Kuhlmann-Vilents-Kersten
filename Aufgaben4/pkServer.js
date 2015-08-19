@@ -113,7 +113,8 @@ app.get('/pkTeam/:sign', jsonParser, function(req, res){
             var mem4 = pkTeam[i].team[4].mem;
             var mem5 = pkTeam[i].team[5].mem;
             var mem6 = pkTeam[i].team[6].mem;
-            var teamset = "Trainersignatur: " + teamsign + ", Teammitglied 1: " + mem1 + ", Teammitglied 2: " + mem2 + ", Teammitglied 3: " + mem3 + ", Teammitglied 4: " + mem4 + ", Teammitglied 5: " + mem5 + ", Teammitglied 6: " + mem6 ;
+            var teamset= '[{"team":[{"sign":"'+teamsign+'"},' + '{"mem":"'+mem1+'"},' + '{"mem":"'+mem2+'"},'+ '{"mem":"'+mem3+'"},'+ '{"mem":"'+mem4+'"},'+ '{"mem":"'+mem5+'"},'+ '{"mem":"'+mem6+'"}]}]'
+            teamset = JSON.parse(teamset);
             if(teamsign === sign){
                 i = length;
                 res.status(200).json(teamset);
@@ -131,6 +132,11 @@ app.get('/pkDex/:prm', function(req, res){
     var length = Object.keys(pkDex).length;
     var pkm;
     var i = 0;
+    var j;
+    var k = -1;
+    var arr = new Array;
+    var pkset = '';
+    
     if(pkm !== prm){
         while (i<length){
             var pkid = pkDex[i].pkm[0].index;
@@ -138,25 +144,58 @@ app.get('/pkDex/:prm', function(req, res){
             var pktyp1 = pkDex[i].pkm[2].typ1;
             var pktyp2 = pkDex[i].pkm[3].typ2;
             var pkbes = pkDex[i].pkm[4].bes;
-            var pkset = "Index: " + pkid + ", Name: " + pkname + ", Typ1: " + pktyp1 + ", Typ2: " + pktyp2 + ", Beschreibung: " + pkbes 
-            if(pkid === prm){
-                i = length;
-                res.status(200).json(pkset);
-            } else if(pkname === prm){
-                i = length;
-                res.status(200).json(pkset);
-            } else if(pktyp1 === prm){
-                i = length;
-                res.status(200).json(pkset);
-            } else if(pktyp2 === prm){
-                i = length;
-                res.status(200).json(pkset);
-            } else if(pkbes === prm){
-                i = length;
-                res.status(200).json(pkset);
-            } else {
+            var set = '{"pkm":[{"index":"'+pkid+'"},' + '{"name":"'+pkname+'"},' + '{"typ1":"'+pktyp1+'"},'+ '{"typ2":"'+pktyp2+'"},'+ '{"bes":"'+pkbes+'"}]}'
+            console.log('set: ' + set + 'i: ' + i);
+            var setcompare = new String(set); 
+            
+            if(pkid === prm || pkname === prm || pktyp1 === prm || pktyp2 === prm || pkbes === prm){
+                for (k;k < i;k++){
+                    k++;
+                    var arrcompare = new String(arr[k]);
+                    if(arrcompare.localeCompare(setcompare) ){
+                        arr[k+1]=set;
+                        console.log('arr in Durchlauf' + k)
+                        for ( var x = 0; x < arr.length;x++){
+                            console.log(x + arr[x]);
+                        }
+                        var laenge = arr.length;
+                        i++;
+                        k = i;
+                    } else {
+                        arr[k]=set;
+                        console.log('arr in Durchlauf' + k)
+                        for ( var x = 0; x < arr.length;x++){
+                            console.log(x + arr[x]);
+                        }
+                        var laenge = arr.length;
+                        i++;
+                        k = i;
+                    }
+                }
+                
+            } else if (pkid !== prm || pkname !== prm || pktyp1 !== prm || pktyp2 !== prm || pkbes !== prm) {
                 i++;
+            } else {
+                console.log(laenge);
+                for(j = 0; j< laenge;j++){
+                    if(j==0) {
+                        pkset += '[' + arr[j] + ',';
+                        console.log(j + ' j==0' );
+                    } else if (j < laenge-1){
+                        pkset += arr[j] + ',';
+                        console.log(j + ' j < arr.lenght');
+                    } else { 
+                        pkset += arr[j] + ']';
+                        console.log(j + ' j < arr.lenght');
+                    }
+                }
+                i = length;
+                console.log(pkset);
+                pkset = JSON.parse(pkset);
+                res.status(200).json(pkset);
+            
             }
+                
         }
             res.status(404).end();
     }
@@ -173,7 +212,8 @@ app.get('/pkUser/:prm', function(req, res){
             var usrid = pkUser[i].user[0].sign;
             var usrname = pkUser[i].user[1].name;
             var usratr = pkUser[i].user[2].atr;
-            var usrset = "Id: " + usrid + ", Name: " + usrname + ", Atr: " + usratr
+            var usrset = '[{"user":[{"sign":"'+usrid+'"},' + '{"name":"'+usrname+'"},' + '{"atr":"'+usratr+'"}]}]' 
+            usrset = JSON.parse(usrset);
             if(usrid === prm){
                 i = length;
                 res.status(200).json(usrset);
