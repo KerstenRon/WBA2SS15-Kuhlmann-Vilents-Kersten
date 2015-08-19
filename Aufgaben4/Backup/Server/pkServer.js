@@ -15,7 +15,7 @@ var content;
 app.set('view engine', 'ejs');
 //File-Array mit Paths der externen Dateien zur persistenten Speicherung von Daten
 var datax = new Array();
-datax[0] = __dirname + '/pkDex.json';
+datax[0] = __dirname + '/pkDexGen1.json';
 datax[1] = __dirname + '/pkTeam.json';
 datax[2] = __dirname + '/pkUser.json';
 
@@ -31,7 +31,7 @@ function readContent(callback) {
 };
 
 readContent(function (err, content) {
-    pkDex=content.pkDex;
+    pkDex=content.pkDexGen1;
 });
 
 //Externe Datei 'pkTeam.json' einlesen
@@ -136,6 +136,7 @@ app.get('/pkDex/:prm', function(req, res){
     var arr = new Array;
     var pkset = '';
     
+    if(pkm !== prm){
         while (i<length){
             var pkid = pkDex[i].pkm[0].index;
             var pkname = pkDex[i].pkm[1].name;
@@ -143,13 +144,34 @@ app.get('/pkDex/:prm', function(req, res){
             var pktyp2 = pkDex[i].pkm[3].typ2;
             var pkbes = pkDex[i].pkm[4].bes;
             var set = '{"pkm":[{"index":"'+pkid+'"},' + '{"name":"'+pkname+'"},' + '{"typ1":"'+pktyp1+'"},'+ '{"typ2":"'+pktyp2+'"},'+ '{"bes":"'+pkbes+'"}]}'
-            console.log('set: ' + set + 'i: ' + i); 
+            console.log('set: ' + set + 'i: ' + i);
+            var setcompare = new String(set); 
             
             if(pkid === prm || pkname === prm || pktyp1 === prm || pktyp2 === prm || pkbes === prm){
-                    arr[k] = set;
-                console.log(k + ' : ' + arr[k]);
-                k++;
-                i++;
+                for (k;k < i;k++){
+                    k++;
+                    var arrcompare = new String(arr[k]);
+                    if(arrcompare.localeCompare(setcompare) ){
+                        arr[k+1]=set;
+                        console.log('arr in Durchlauf' + k)
+                        for ( var x = 0; x < arr.length;x++){
+                            console.log(x + arr[x]);
+                        }
+                        var laenge = arr.length;
+                        i++;
+                        k = i;
+                    } else {
+                        arr[k]=set;
+                        console.log('arr in Durchlauf' + k)
+                        for ( var x = 0; x < arr.length;x++){
+                            console.log(x + arr[x]);
+                        }
+                        var laenge = arr.length;
+                        i++;
+                        k = i;
+                    }
+                }
+                
             } else if (pkid !== prm || pkname !== prm || pktyp1 !== prm || pktyp2 !== prm || pkbes !== prm) {
                 i++;
             } else {
@@ -175,6 +197,7 @@ app.get('/pkDex/:prm', function(req, res){
                 
         }
             res.status(404).end();
+    }
 });
 
 //Anfordern der Unterressourcen pKUser/:prm von pkUser 
@@ -218,7 +241,7 @@ app.post('/pkDex', jsonParser, function(req, res){
     
         data = datax[0]
     
-    save = JSON.stringify({pkDex:pkDex});
+    save = JSON.stringify({pkdexGen1:pkDex});
     fs.writeFile(data, save, function(err){
         if(err){
             return console.log(err);
