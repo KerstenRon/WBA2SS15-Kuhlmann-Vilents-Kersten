@@ -143,7 +143,7 @@ app.get('/pkDex/:prm', function(req, res){
             var pktyp2 = pkDex[i].pkm[3].typ2;
             var pkbes = pkDex[i].pkm[4].bes;
             var set = '{"pkm":[{"index":"'+pkid+'"},' + '{"name":"'+pkname+'"},' + '{"typ1":"'+pktyp1+'"},'+ '{"typ2":"'+pktyp2+'"},'+ '{"bes":"'+pkbes+'"}]}'
-            console.log('set: ' + set + 'i: ' + i); 
+            console.log(' set: ' + set + ' i: ' + i + ' Listenlänge: ' + length); 
             
             if(pkid === prm || pkname === prm || pktyp1 === prm || pktyp2 === prm || pkbes === prm){
                 arr[k] = set;
@@ -154,15 +154,18 @@ app.get('/pkDex/:prm', function(req, res){
                 k++;
                 i++;
             } else if (i === length-1) {
-                console.log(laenge);
-                for(j = 0; j< laenge;j++){
-                    if(j==0) {
+                
+                for(j = 0; j< arr.length;j++){
+                    if(arr.length == 1) {
+                        pkset += '[' + arr[j] + ']';
+                        console.log(j + ' arr.length === 1' );
+                    } else if (j==0){
                         pkset += '[' + arr[j] + ',';
                         console.log(j + ' j==0' );
-                    } else if (j < laenge-1){
+                    } else if (j < arr.length-1 ) { 
                         pkset += arr[j] + ',';
-                        console.log(j + ' j < arr.lenght');
-                    } else { 
+                        console.log(j + ' j < arr.lenght');  
+                    } else {
                         pkset += arr[j] + ']';
                         console.log(j + ' j < arr.lenght');
                     }
@@ -177,6 +180,7 @@ app.get('/pkDex/:prm', function(req, res){
             }
                 
         }
+          
             res.status(404).end();
 });
 

@@ -50,6 +50,11 @@
                        {"name":"Turtok"},
                        {"typ1":"Wasser"},
                        {"typ2":"none"},
-                       {"bes":"Tankkröte"}
+                       {"bes":"Tankkröte"}]},
+              {"pkm":[{"index":"XXX"},
+                       {"name":"MissingNo"},
+                       {"typ1":""},
+                       {"typ2":""},
+                       {"bes":"Wir wissen genau warum ;D"}
                      ]}
 ]}
