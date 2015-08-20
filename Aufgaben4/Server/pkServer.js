@@ -125,7 +125,7 @@ app.get('/pkTeam/:sign', jsonParser, function(req, res){
     }
         res.status(404).end();    
 });
-
+// BEARBEITET!!! am 19.08. Ron, Leon von 12.03 - 17.43Uhr
 //Anfordern der Unterressourcen pkDex/:prm von pkDexGen1  
 app.get('/pkDex/:prm', function(req, res){
     var prm = req.params.prm;
@@ -142,15 +142,10 @@ app.get('/pkDex/:prm', function(req, res){
             var pktyp1 = pkDex[i].pkm[2].typ1;
             var pktyp2 = pkDex[i].pkm[3].typ2;
             var pkbes = pkDex[i].pkm[4].bes;
-            var set = '{"pkm":[{"index":"'+pkid+'"},' + '{"name":"'+pkname+'"},' + '{"typ1":"'+pktyp1+'"},'+ '{"typ2":"'+pktyp2+'"},'+ '{"bes":"'+pkbes+'"}]}'
-            console.log(' set: ' + set + ' i: ' + i + ' Listenlänge: ' + length); 
+            var set = '{"pkm":[{"index":"'+pkid+'"},' + '{"name":"'+pkname+'"},' + '{"typ1":"'+pktyp1+'"},'+ '{"typ2":"'+pktyp2+'"},'+ '{"bes":"'+pkbes+'"}]}' 
             
             if(pkid === prm || pkname === prm || pktyp1 === prm || pktyp2 === prm || pkbes === prm){
                 arr[k] = set;
-                console.log(k + ' : ' + arr[k]);
-                for(var y = 0; y<arr.length;y++){
-                    console.log('Position: ' + y + ' : ' + arr[y]);
-                }
                 k++;
                 i++;
             } else if (i === length-1) {
@@ -158,29 +153,23 @@ app.get('/pkDex/:prm', function(req, res){
                 for(j = 0; j< arr.length;j++){
                     if(arr.length == 1) {
                         pkset += '[' + arr[j] + ']';
-                        console.log(j + ' arr.length === 1' );
                     } else if (j==0){
                         pkset += '[' + arr[j] + ',';
-                        console.log(j + ' j==0' );
                     } else if (j < arr.length-1 ) { 
-                        pkset += arr[j] + ',';
-                        console.log(j + ' j < arr.lenght');  
+                        pkset += arr[j] + ','; 
                     } else {
                         pkset += arr[j] + ']';
-                        console.log(j + ' j < arr.lenght');
                     }
                 }
                 i = length;
                 console.log(pkset);
                 pkset = JSON.parse(pkset);
-                res.status(200).json(pkset);
-            
+                res.status(200).json(pkset);          
             } else {
                 i++;    
             }
                 
-        }
-          
+        }     
             res.status(404).end();
 });
 
