@@ -11,8 +11,25 @@
             background-image: url("img/bg_full.jpg");
             background-size: 100%;
             background-repeat: no-repeat;
+            font-family: Verdana, sans-serif;
         }
         
+                
+        a{
+            text-decoration: none;
+            color: black;
+        }
+        
+        footer{
+            color: #AAA;
+            text-align: center;
+            background-color: #333;
+            position: fixed;
+        }
+        
+        
+        /*NAVIGATION*/
+        /*WIP*/
         nav{
             display: block;
             margin: 0 auto 0 auto;
@@ -25,12 +42,9 @@
             background-color: grey;
             text-decoration: none;
         }
+
         
-        a{
-            text-decoration: none;
-            color: black;
-        }
-        
+        /* DEX */
         .dex {
             background-image: url("img/dex_bg%20copy.png");
             height: 600px;
@@ -38,6 +52,8 @@
             margin: 0 auto 0 auto;
         }
         
+        
+        /* LINKER DATENSCHIRM */
         .dex .data-left{
             position: absolute;
             width: 330px;
@@ -47,12 +63,19 @@
             text-align: center;
         }
         
-        .dex .data-left div{
+        .dl-btn{
             border: 1px solid black;
             height: 30px;
-            padding: 15px 0 15px 0;
+            padding: 26px 0 26px 0;
+            background: #DDD; 
         }
         
+        .dex .data-left div:hover{
+            background: #CCC;
+        }
+
+        
+        /* RECHTER DATENSCHIRM */
         .dex .data-right{
             position: absolute;
             border-radius: 10px;
@@ -60,6 +83,11 @@
             width: 300px;
             margin-left: 464px;
             margin-top: 158px;
+        }
+        
+        .nftitle{
+            border-radius: 5px 5px 0 0;
+            text-align: center;
         }
     </style>
 </head>
@@ -86,8 +114,6 @@
                     <a href="html/about.html">Impressum</a>
                 </div>
             </li>
-            <input type="text">
-            <button>Suchen</button>
         </ul>
     </nav>
     
@@ -96,18 +122,31 @@
         
         <!--LINKER DATENSCHIRM-->
         <!--Auswahlmöglichkeiten-->
+        <!--Links MÜSSEN individuelles Padding in Abhängigkeit von der Textlänge bekommen, weil sonst die ganze Schaltfläche
+            nicht als Link benutzt werden kann...-->
         <div class="data-left">
-            <div>
-                <a href="/html/dex.html">Pokédex</a>
+            <div class="dl-btn">
+                <a href="/html/dex.html" style="padding: 26px 130px 37px;">Pokédex</a>
             </div>
+            <div class="dl-btn">
+                <a href="html/click.html" style="padding: 26px 123px 37px">Clickfight!</a>
+            </div>
+            <div class="dl-btn">
+                <a href="html/pkTeam.html" style="padding: 26px 119px 37px">Mein Team</a>
+            </div>
+            <div class="dl-btn">Links</div>
         </div>
         
         <!--RECHTER DATENSCHIRM-->
         <!--Index: Newsfeed-->
         <div class="data-right">
-            <img>
+            <div class="nftitle">
+                <h2>Aktuelle Neuigkeiten</h2>
+            </div>
         </div>
     
     </div>
+    
+    <footer>© Tabula RaZa 2015</footer>
 
 </body>
