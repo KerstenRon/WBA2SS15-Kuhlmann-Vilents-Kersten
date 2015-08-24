@@ -8,6 +8,7 @@ var ejs = require('ejs');
 var app = express();
 
 app.set('view engine', 'ejs');
+app.use(express.static(__dirname + '/views'));
 
 app.get('/', jsonParser, function (req, res) {
     res.render('index');
@@ -85,7 +86,7 @@ app.get('/pkTeam', jsonParser, function (req, res) {
 });
 //GET pkUser Erabeitet von Ron  15.00 - 16.12Uhr
 app.get('/pkUser', jsonParser, function (req, res) {
-    fs.readFile('./ejs/pkUser.ejs', {encoding: 'utf-8'}, function (err, filestring) {
+    fs.readFile('./views/pkUser.ejs', {encoding: 'utf-8'}, function (err, filestring) {
         if (err) {
             throw err;
         } else {
