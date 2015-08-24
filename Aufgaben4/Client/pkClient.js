@@ -13,6 +13,10 @@ app.use(express.static(__dirname + '/views'));
 app.get('/', jsonParser, function (req, res) {
     res.render('index');
 });
+
+app.get('/about', jsonParser, function (req, res) {
+    res.render('about');
+});
     
 //GET pkDex Erarbeitet von Ron, Leon 17.08. 10 - 12Uhr
 app.get('/pkDex', jsonParser, function (req, res) {
@@ -52,7 +56,7 @@ app.get('/pkDex', jsonParser, function (req, res) {
 });
 //GET pkTeam Erarbeitet von Ron, Leon 17.08 10 - 12Uhr
 app.get('/pkTeam', jsonParser, function (req, res) {
-    fs.readFile('./ejs/pkTeam.ejs', {encoding: 'utf-8'}, function (err, filestring) {
+    fs.readFile('./views/pkTeam.ejs', {encoding: 'utf-8'}, function (err, filestring) {
         if (err) {
             throw err;
         } else {

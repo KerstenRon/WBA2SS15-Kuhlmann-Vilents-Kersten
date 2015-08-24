@@ -8,7 +8,7 @@
     <!--CSS-->
     <style type="text/css">
         body {
-            background-image: url("/Aufgaben4/img/bg_full.jpg");
+            background-image: url("/img/bg_full.jpg");
             background-size: 100%;
             background-repeat: no-repeat;
             font-family: Verdana, sans-serif;
@@ -46,7 +46,7 @@
         
         /* DEX */
         .dex {
-            background-image: url("/Aufgaben4/img/dex_bg%20copy.png");
+            background-image: url("/img/dex_bg%20copy.png");
             height: 600px;
             width: 800px;
             margin: 0 auto 0 auto;
@@ -109,17 +109,17 @@
         <ul>
             <li>
                 <div name="home">
-                    <a href="/Aufgaben4/index.html">Home</a>
+                    <a href="/">Home</a>
                 </div>
             </li>
             <li>
                 <div name="user">
-                    <a href="/Aufgaben4/html/user.html">Profil</a>
+                    <a href="/pkUser">Profil</a>
                 </div>
             </li>
             <li>
                 <div name="impressum">
-                    <a href="/Aufgaben4/html/about.html">Impressum</a>
+                    <a href="/about">Impressum</a>
                 </div>
             </li>
         </ul>
@@ -134,13 +134,13 @@
             nicht als Link benutzt werden kann...-->
         <div class="data-left">
             <div class="dl-btn">
-                <a href="/html/dex.html" style="padding: 26px 130px 37px;">Pokédex</a>
+                <a href="pkDex" style="padding: 26px 130px 37px;">Pokédex</a>
             </div>
             <div class="dl-btn">
-                <a href="html/click.html" style="padding: 26px 123px 37px">Clickfight!</a>
+                <a href="click" style="padding: 26px 123px 37px">Clickfight!</a>
             </div>
             <div class="dl-btn">
-                <a href="html/pkTeam.html" style="padding: 26px 119px 37px">Mein Team</a>
+                <a href="pkTeam" style="padding: 26px 119px 37px">Mein Team</a>
             </div>
             <div class="dl-btn">Links</div>
         </div>
@@ -149,7 +149,7 @@
         <!--Index: Newsfeed-->
         <div class="data-right">
             <div class="profile-pic">
-                <img src="/Aufgaben4/img/upload/user.jpg">
+                <img src='<%=pkUser[0].user[4].pic%>'>
             </div>
             <div>
                 <p>Signatur: <%=pkUser[0].user[0].sign%></p>
