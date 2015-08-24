@@ -1,4 +1,4 @@
-//Einbindung der Module und Erstellung von Instanzen
+﻿//Einbindung der Module und Erstellung von Instanzen
 var http = require('http');
 var express = require('express');
 var bodyParser = require('body-parser');
