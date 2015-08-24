@@ -7,6 +7,12 @@ var ejs = require('ejs');
 
 var app = express();
 
+app.set('view engine', 'ejs');
+
+app.get('/', jsonParser, function (req, res) {
+    res.render('index');
+});
+    
 //GET pkDex Erarbeitet von Ron, Leon 17.08. 10 - 12Uhr
 app.get('/pkDex', jsonParser, function (req, res) {
     fs.readFile('./ejs/pkDex.ejs', {encoding: 'utf-8'}, function (err, filestring) {
