@@ -16,7 +16,7 @@ app.get('/', jsonParser, function (req, res) {
     
 //GET pkDex Erarbeitet von Ron, Leon 17.08. 10 - 12Uhr
 app.get('/pkDex', jsonParser, function (req, res) {
-    fs.readFile('./ejs/pkDex.ejs', {encoding: 'utf-8'}, function (err, filestring) {
+    fs.readFile('./views/pkDex.ejs', {encoding: 'utf-8'}, function (err, filestring) {
         if (err) {
             throw err;
         } else {
@@ -29,7 +29,7 @@ app.get('/pkDex', jsonParser, function (req, res) {
                     accept: 'application/json'
                 }
             };
-
+                
             //GET Request
             var x = http.request(options, function (x) {
                 console.log("Connected");
@@ -40,6 +40,7 @@ app.get('/pkDex', jsonParser, function (req, res) {
                     res.setHeader('content-type', 'text/html');
                     res.writeHead(200);
                     res.write(html);
+                    res.render('views/pkDex');
                     res.end();
                 });
             });

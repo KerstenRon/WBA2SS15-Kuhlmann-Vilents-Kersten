@@ -1,9 +1,13 @@
 {"pkUser":[{"user":[{"sign":"123"},
                     {"name":"Hans"},
-                    {"atr":"none"}
+                    {"hscore":"0"},
+                    {"games":"0"},
+                    {"pic":"'/views/img/upload/user.jpg'"}
                    ]},
            {"user":[{"sign":"452"},
                     {"name":"Ash"},
-                    {"atr":"none"}
+                    {"hscore":"0"},
+                    {"games":"0"},
+                    {"pic":"'none'"}
                    ]}
           ]}
