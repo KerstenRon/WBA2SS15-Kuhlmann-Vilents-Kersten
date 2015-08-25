@@ -44,7 +44,6 @@ app.get('/pkDex', jsonParser, function (req, res) {
                     res.setHeader('content-type', 'text/html');
                     res.writeHead(200);
                     res.write(html);
-                    res.render('views/pkDex');
                     res.end();
                 });
             });
@@ -128,7 +127,7 @@ app.get('/pkUser', jsonParser, function (req, res) {
 //GET pkUser Erabeitet von Ron am 18.08. 10.00 - 10.25Uhr
 app.get('/pkUser/:sign', jsonParser, function (req, res) {
     var sign = req.params.sign;
-    fs.readFile('./ejs/pkUser.ejs', {encoding: 'utf-8'}, function (err, filestring) {
+    fs.readFile('./views/pkUserPrm.ejs', {encoding: 'utf-8'}, function (err, filestring) {
         if (err) {
             throw err;
         } else {
