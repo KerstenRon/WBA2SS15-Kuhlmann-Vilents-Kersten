@@ -104,6 +104,30 @@
         }
 
     </style>
+    <script type="application/javascript">
+        
+        function rndmInt (high, low) {
+            return Math.floor(Math.Random() * (high - low) + low);
+        }
+        
+        function countDown(time, id){
+            s = time % 60;
+            strC = ' ' + s + ' ';
+            if(time > 0){
+                //Countdown-Funktion erneut aufrufen
+                //diesmal mit einer Sekunde weniger
+                window.setTimeout('countdown('+ --time+',\''+id+'\')',1000);
+            } else {
+                strC = "Go!";
+            }
+            document.getElementByID(id).innerHTML = strC;
+        }
+        
+        function startCountdown(time, id){
+            countDown(time, id);
+        }
+            
+    </script>
 </head>
 
 <!-- BODY -->
@@ -132,10 +156,12 @@
     </nav>
     
     <div class="dex">
+        
         <%# Wahrheitswerte zur Überprüfung des Spielfortschritts %>
-        <% var found = false;
-           var played = false;
-           var result = false; %>
+        <% var found = false; %>
+        <% var played = false; %>
+        <% var result = false; %>
+        
         <!--LINKER DATENSCHIRM-->
         <!--Auswahlmöglichkeiten-->
         <!--Links MÜSSEN individuelles Padding in Abhängigkeit von der Textlänge bekommen, weil sonst die ganze Schaltfläche
@@ -143,11 +169,15 @@
         <div class="data-left">
             <h3>Willkommmen zum Clickfight!</h3>
             <p>Fordere andere Trainer heraus und stelle deine Geschwindigkeit unter Beweis! Clicke in einer Minute so oft wie möglich den Button und sei der schnellste, wie keiner vor dir war!</p>
-            <% if(found) { %>
+            
+        <% if(found) { %>
+            
             <div class="dl-btn">
                 Bereit
             </div>
-            <% } %>
+            
+        <% } %>
+            
             <div class="dl-btn">
                 <a href="/" style="padding: 26px 135px 37px;">Zurück</a>
             </div>
@@ -156,10 +186,10 @@
         <!--RECHTER DATENSCHIRM-->
         <!--Index: Newsfeed-->
         <div class="data-right">
-            <% var rndm = 0;
-               window.alert(rndm);
-               rndm = Math.floor(Math.Random() * (pkUser.Length - 0) + 0); 
-               console.log(rndm);%>          
+            
+        <% var rndm = rndmInt(0, Object.keys(pkUser).length); %>
+        <% window.alert(rndm); %>  
+            
             <div class="nftitle">
                 <p>
                     <% if(!found) { %>

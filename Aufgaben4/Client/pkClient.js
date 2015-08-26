@@ -29,10 +29,6 @@ app.get('/about', jsonParser, function (req, res) {
                 });
             });
 });
-
-app.get('/click', jsonParser, function (req, res) {
-    res.render('click');
-});
     
 //GET pkDex Erarbeitet von Ron, Leon 17.08. 10 - 12Uhr
 app.get('/pkDex', jsonParser, function (req, res) {
@@ -111,6 +107,44 @@ app.get('/pkUser', jsonParser, function (req, res) {
         if (err) {
             throw err;
         } else {
+            var options = {
+                host: 'localhost',
+                port: '3000',
+                path: '/pkUser',
+                method: 'GET',
+                headers: {
+                    accept: 'application/json'
+                }
+            };
+
+            //GET Request
+            var x = http.request(options, function (x) {
+                console.log("Connected");
+                x.on('data', function (chunk) {
+                    //Verarbeitete Response
+                    var userdata = JSON.parse('{ "pkUser": '+ chunk +'}');
+                    var html = ejs.render(filestring, userdata);
+                    res.setHeader('content-type', 'text/html');
+                    res.writeHead(200);
+                    res.write(html);
+                    res.end();
+                });
+            });
+
+        //wenn http.request verwendet wird muss immer ein end(); kommen
+            x.end();
+        }
+    });
+});
+
+//GET click Erarbeitet von Ron und Leon
+app.get('/click', jsonParser, function (req, res) {
+    fs.readFile('./views/click.ejs', {encoding: 'utf-8'}, function (err, filestring) {
+        if (err) {
+            throw err;
+        } else {
+            //ACHTUNG: Es muss ein GET-Request auf die /pkUser gemacht werden,
+            //da die click-Ressource darauf ebenfalls zugreift!
             var options = {
                 host: 'localhost',
                 port: '3000',
