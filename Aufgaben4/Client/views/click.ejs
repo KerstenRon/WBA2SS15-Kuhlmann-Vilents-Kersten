@@ -106,8 +106,8 @@
     </style>
     <script type="application/javascript">
         
-        function rndmInt (high, low) {
-            return Math.floor(Math.Random() * (high - low) + low);
+        function rndmInt(low, high) {
+            return Math.floor(Math.random() * (high - low) + low);
         }
         
         function countDown(time, id){
@@ -158,9 +158,10 @@
     <div class="dex">
         
         <%# Wahrheitswerte zur Überprüfung des Spielfortschritts %>
-        <% var found = false; %>
-        <% var played = false; %>
-        <% var result = false; %>
+        <% var found = false;
+           var played = false;
+           var result = false;
+           console.log("Wahrheitswerte: " + found + ' / ' + played + ' / ' + result); %>
         
         <!--LINKER DATENSCHIRM-->
         <!--Auswahlmöglichkeiten-->
@@ -170,14 +171,9 @@
             <h3>Willkommmen zum Clickfight!</h3>
             <p>Fordere andere Trainer heraus und stelle deine Geschwindigkeit unter Beweis! Clicke in einer Minute so oft wie möglich den Button und sei der schnellste, wie keiner vor dir war!</p>
             
-        <% if(found) { %>
-            
             <div class="dl-btn">
                 Bereit
             </div>
-            
-        <% } %>
-            
             <div class="dl-btn">
                 <a href="/" style="padding: 26px 135px 37px;">Zurück</a>
             </div>
@@ -187,26 +183,22 @@
         <!--Index: Newsfeed-->
         <div class="data-right">
             
-        <% var rndm = rndmInt(0, Object.keys(pkUser).length); %>
-        <% window.alert(rndm); %>  
+        <% var a = 0;
+           var b = Object.keys(pkUser).length;
+           console.log("Anzahl der Einträge: " + b);
+           var rndm = Math.floor(Math.random() * (b - a) + a);
+           console.log("Festgelegte Position: " + rndm); %>
             
-            <div class="nftitle">
-                <p>
-                    <% if(!found) { %>
-                    Gegner wird gesucht...
-                    <% } else { %>
-                    Gegner gefunden!
-                </p>
+            <div class="nftitle" id="title">
+                <p>Dein nächster Gegner:</p>
             </div>
             <div class="profile-pic">
-                    <img src="<%=pkUser[i].user[4].pic%>" />
+                <img src="<%=pkUser[rndm].user[4].pic%>" />
             </div>
-            <p style="text-align: center"><%=pkUser[i].user[1].name%></p>
+            <p style="text-align: center"><%=pkUser[rndm].user[1].name%></p>
                         <% if(played) { %>
-            <p style="text-align: center">Highscore : <%=plUser[i].user[2].hscore%></p>
+            <p style="text-align: center">Highscore : <%=plUser[rndm].user[2].hscore%></p>
                         <% } %>
-            
-                    <% } %>
         </div>
     
     </div>
