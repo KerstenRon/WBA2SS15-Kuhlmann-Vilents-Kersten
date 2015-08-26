@@ -1,4 +1,4 @@
-﻿//Einbindung der Module und Erstellung von Instanzen
+//Einbindung der Module und Erstellung von Instanzen
 var http = require('http');
 var express = require('express');
 var bodyParser = require('body-parser');
@@ -183,8 +183,10 @@ app.get('/pkUser/:prm', function(req, res){
         while (i<length){
             var usrid = pkUser[i].user[0].sign;
             var usrname = pkUser[i].user[1].name;
-            var usratr = pkUser[i].user[2].atr;
-            var usrset = '[{"user":[{"sign":"'+usrid+'"},' + '{"name":"'+usrname+'"},' + '{"atr":"'+usratr+'"}]}]' 
+            var usrhscore = pkUser[i].user[2].hscore;
+            var usrgames = pkUser[i].user[3].games;
+            var usrpic= pkUser[i].user[4].pic;
+            var usrset = '[{"user":[{"sign":"'+usrid+'"},' + '{"name":"'+usrname+'"},' + '{"hscore":"'+usrhscore+'"},' + '{"games":"'+usrgames+'"},' + '{"pic":"'+usrpic+'"}]}]' 
             usrset = JSON.parse(usrset);
             if(usrid === prm){
                 i = length;
@@ -192,7 +194,13 @@ app.get('/pkUser/:prm', function(req, res){
             } else if(usrname === prm){
                 i = length;
                 res.status(200).json(usrset);
-            } else if(usratr === prm){
+            } else if(usrhscore === prm){
+                i = length;
+                res.status(200).json(usrset);
+            } else if(usrgames === prm){
+                i = length;
+                res.status(200).json(usrset);
+            } else if(usrpic === prm){
                 i = length;
                 res.status(200).json(usrset);
             } else {

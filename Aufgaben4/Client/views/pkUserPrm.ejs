@@ -83,7 +83,6 @@
             width: 300px;
             margin-left: 464px;
             margin-top: 158px;
-            overflow:auto;
         }
         
         .data-right p{
@@ -149,22 +148,16 @@
         <!--RECHTER DATENSCHIRM-->
         <!--Index: Newsfeed-->
         <div class="data-right">
-            <ul class="usr-list">
-                <%
-                pkUser.forEach(function(pkUser) {
-                    %><div class="usr"><%
-                    %><li><%
-                        %><h4>Signatur:    <%=pkUser.user[0].sign%></h4><%
-                        %><ul><%
-                            %><li><h5>Username:     <%=pkUser.user[1].name%></h5></li><%
-                            %><li><h5>Highscore:     <%=pkUser.user[2].hscore%></h5></li><%
-                            %><li><h5>Gespielte:     <%=pkUser.user[3].games%></h5></li><%
-                        %></ul><%
-                    %></li><%
-                    %></div><%
-                });%>
-                %>
-            </ul>
+            <div class="profile-pic">
+                <img src='<%=pkUser[0].user[4].pic%>'>
+            </div>
+            <div>
+                <p>Signatur: <%=pkUser[0].user[0].sign%></p>
+                <p>Username: <%=pkUser[0].user[1].name%></p>
+                <p>Highscore: <%=pkUser[0].user[2].hscore%></p>
+                <p>Gespielte Spiele: <%=pkUser[0].user[3].games%></p>      
+            </div>
+            
         </div>
     
     </div>
