@@ -1,0 +1,187 @@
+<!--HEAD-->
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Clickfight! - Tabula RaZa's Pokedex</title>
+    <meta name="description" content="Der Pokédex von Tabula RaZa">
+    <meta charset="utf-8">
+    
+    <!--CSS-->
+    <style type="text/css">
+        body {
+            background-image: url("img/bg_full.jpg");
+            background-size: 100%;
+            background-repeat: no-repeat;
+            font-family: Verdana, sans-serif;
+        }
+        
+                
+        a{
+            text-decoration: none;
+            color: black;
+        }
+        
+        footer{
+            color: #AAA;
+            text-align: center;
+            background-color: #333;
+            position: fixed;
+        }
+        
+        
+        /*NAVIGATION*/
+        /*WIP*/
+        nav{
+            display: block;
+            margin: 0 auto 0 auto;
+        }
+        
+        nav li {
+            display: inline-block;
+            padding: 5px 7px 5px 7px;
+            border: 1px solid black;
+            background-color: grey;
+            text-decoration: none;
+        }
+
+        
+        /* DEX */
+        .dex {
+            background-image: url("img/dex_bg%20copy.png");
+            height: 600px;
+            width: 800px;
+            margin: 0 auto 0 auto;
+        }
+        
+        
+        /* LINKER DATENSCHIRM */
+        .dex .data-left{
+            position: absolute;
+            width: 330px;
+            height: 335px;
+            margin-left: 30px;
+            margin-top: 154px;
+            text-align: center;
+        }
+        
+        .data-left p{
+            padding: 0 10px;
+            margin-top: -3px;
+        }
+        
+        .dl-btn{
+            border: 1px solid black;
+            height: 30px;
+            padding: 26px 0 26px 0;
+            background: #DDD; 
+        }
+        
+        .dl-btn:hover{
+            background: #CCC;
+        }
+
+        
+        /* RECHTER DATENSCHIRM */
+        .dex .data-right{
+            position: absolute;
+            border-radius: 10px;
+            height: 374px;
+            width: 300px;
+            margin-left: 464px;
+            margin-top: 158px;
+        }
+        
+        .nftitle{
+            border-radius: 5px 5px 0 0;
+            text-align: center;
+        }
+        
+        .profile-pic{
+            border: 2px solid black;
+            margin: 20px auto 35px auto; 
+            width: 150px;
+            height: 150px;
+        }
+
+    </style>
+</head>
+
+<!-- BODY -->
+
+<body>
+
+    <!-- NAVIGATIONSLEISTE -->
+    <nav>
+        <ul>
+            <li>
+                <div name="home">
+                    <a href="/">Home</a>
+                </div>
+            </li>
+            <li>
+                <div name="user">
+                    <a href="/pkUser">Profil</a>
+                </div>
+            </li>
+            <li>
+                <div name="impressum">
+                    <a href="/about">Impressum</a>
+                </div>
+            </li>
+        </ul>
+    </nav>
+    
+    <div class="dex">
+        <%# Wahrheitswerte zur Überprüfung des Spielfortschritts %>
+        <% var found = false;
+           var played = false;
+           var result = false; %>
+        <!--LINKER DATENSCHIRM-->
+        <!--Auswahlmöglichkeiten-->
+        <!--Links MÜSSEN individuelles Padding in Abhängigkeit von der Textlänge bekommen, weil sonst die ganze Schaltfläche
+            nicht als Link benutzt werden kann...-->
+        <div class="data-left">
+            <h3>Willkommmen zum Clickfight!</h3>
+            <p>Fordere andere Trainer heraus und stelle deine Geschwindigkeit unter Beweis! Clicke in einer Minute so oft wie möglich den Button und sei der schnellste, wie keiner vor dir war!</p>
+            <% if(found) { %>
+            <div class="dl-btn">
+                Bereit
+            </div>
+            <% } %>
+            <div class="dl-btn">
+                <a href="/" style="padding: 26px 135px 37px;">Zurück</a>
+            </div>
+        </div>
+        
+        <!--RECHTER DATENSCHIRM-->
+        <!--Index: Newsfeed-->
+        <div class="data-right">
+            <% var rndm = 0;
+               window.alert(rndm);
+               rndm = Math.floor(Math.Random() * (pkUser.Length - 0) + 0); 
+               console.log(rndm);%>          
+            <div class="nftitle">
+                <p>
+                    <% if(!found) { %>
+                    Gegner wird gesucht...
+                    <% } else { %>
+                    Gegner gefunden!
+                </p>
+            </div>
+            <div class="profile-pic">
+                    <img src="<%=pkUser[i].user[4].pic%>" />
+            </div>
+            <p style="text-align: center"><%=pkUser[i].user[1].name%></p>
+                        <% if(played) { %>
+            <p style="text-align: center">Highscore : <%=plUser[i].user[2].hscore%></p>
+                        <% } %>
+            
+                    <% } %>
+        </div>
+    
+    </div>
+    
+    <footer>© Tabula RaZa 2015</footer>
+
+</body>
+</html>

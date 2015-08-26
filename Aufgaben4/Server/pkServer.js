@@ -93,7 +93,6 @@ app.get('/pkDex', function(req, res) {
 
 //Liste aller pkUser anfordern
 app.get('/pkUser', function(req, res) {
-    
     res.status(200).json(pkUser);
 });
 
