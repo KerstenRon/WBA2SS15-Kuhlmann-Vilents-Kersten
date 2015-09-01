@@ -49,7 +49,7 @@
         
         
             <!--LINKER DATENSCHIRM-->
-            <!--Auswahlmöglichkeiten-->
+            <!--Auswahlmöglichkeiten / Interaktion-->
             <!--Links MÜSSEN individuelles Padding in Abhängigkeit von der Textlänge bekommen, weil sonst die ganze Schaltfläche nicht als Link benutzt werden kann...-->
             <div class="data-left"> 
             
@@ -65,8 +65,11 @@
             </div>
         
             <!--RECHTER DATENSCHIRM-->
+            <!--Informationsteil-->
+            <!--Hier werden i.d.R. Daten jedweder Art aufgelistet-->
             <div class="data-right">
             
+            <%# "Berechnung" des Gegners - der Gegner wird bisher per Zufall ausgewählt. %>
             <% var a = 0;
                var b = Object.keys(pkUser).length;
                console.log("Anzahl der Einträge: " + b);
