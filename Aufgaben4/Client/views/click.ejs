@@ -8,7 +8,6 @@
         <link href="css/style.css" rel="stylesheet" type="text/css">
     
         <script type="text/javascript" src="http://code.jquery.com/jquery-latest.min.js"></script>
-        <script type="text/javascript" src="js/timer.jquery.js"></script>
         <script type="text/javascript" src="js/runtime.js"></script>        
     </head>
     
@@ -59,6 +58,12 @@
                 <div class="dl-btn" id="start">
                     Bereit
                 </div>
+                <div class="dl-btn clicker" id="clicker">
+                    Click!
+                </div>
+                <div class="dl-btn clicker" id="submit">
+                    Highscore hochladen!
+                </div>
                 <div class="dl-btn" id="back">
                     <a href="/" style="padding: 26px 135px 37px;">Zurück</a>
                 </div>
@@ -70,7 +75,7 @@
             <div class="data-right">
             
             <%# "Berechnung" des Gegners - der Gegner wird bisher per Zufall ausgewählt. %>
-            <% var a = 0;
+            <% var a = 1;
                var b = Object.keys(pkUser).length;
                console.log("Anzahl der Einträge: " + b);
                var rndm = Math.floor(Math.random() * (b - a) + a);
@@ -84,7 +89,7 @@
                 </div>
                 <p style="text-align: center"><%=pkUser[rndm].user[1].name%></p>
                         <% if(played) { %>
-                <p style="text-align: center">Highscore : <%=plUser[rndm].user[2].hscore%></p>
+                <p style="text-align: center">Highscore : <%=pkUser[rndm].user[2].hscore%></p>
                         <% } %>
             </div>
     
