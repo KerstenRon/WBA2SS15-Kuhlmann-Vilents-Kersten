@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+  <head></head>
+  <body>
+    <!--Javascript von faye einbinden-->
+    <script type="text/javascript" src="http://localhost:3000/faye/client.js"></script>
+
+    <h1>News Publish</h1>
+    
+    <label for="author">Name:</label>
+    <input type="text" id="author">
+    <br>
+    
+    <label for="content">Content:</label>
+    <input type="text" id="content">
+    <br>
+    
+    <button type="button" id="sendButton" onClick="publishMessage()">Senden</button>
+    
+    <!--Publish-->
+    <script>
+      var client = new faye.Client("http://localhost:3000/faye");
+      
+      function publishMessage() {
+        var publication = client.publish('/news', {
+          "author": document.getElementById('author'),
+          "content": document.getElementById('content')
+        });
+
+      //promise-Objekt von publication mit Handlern versehen
+        publication.then {
+          function() {
+            console.log("Nachricht erfolgreich gesendet.");
+            },
+          function(error) {
+            console.log("Nachricht erfolgreich gesendet.");
+          }
+        };
+      };
+    </script>
+  </body>
+</html>
