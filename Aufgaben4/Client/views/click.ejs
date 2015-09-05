@@ -73,12 +73,12 @@
                         
                         function upload() {
                             var publication = client.publish('/highscore', {
-                                highscore: 11
+                                highscore: document.getElementById("clicker").innerHTML
                             });
                             
                             publication.then(
                                 function() {
-                                    window.alert('Nachricht erfolgreich an Server gesendet.');
+                                    window.alert('Nachricht erfolgreich verschickt.');
                                 }, 
                                 function(error) {
                                     window.alert('Nachricht konnte nicht gesendet werden.');
