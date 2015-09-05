@@ -8,7 +8,9 @@
         <link href="css/style.css" rel="stylesheet" type="text/css">
     
         <script type="text/javascript" src="http://code.jquery.com/jquery-latest.min.js"></script>
-        <script type="text/javascript" src="js/runtime.js"></script>        
+        <script type="text/javascript" src="js/runtime.js"></script>
+        <!--BEARBEITET: Javascript von Faye einbinden-->
+        <script type="text/javascript" src="http://localhost:3000/faye/client.js"></script>       
     </head>
     
     <!-- BODY -->
@@ -61,9 +63,30 @@
                 <div class="dl-btn clicker" id="clicker">
                     Click!
                 </div>
+
+                <!--BEARBEITET: Upload für den Highscore mit Faye-->
                 <div class="dl-btn clicker" id="submit">
-                    Highscore hochladen!
+                    <button onclick="upload()">Highscore hochladen!</button>
+
+                    <script type="text/javascript">
+                        var client = new Faye.Client('http://localhost:3000/faye');
+                        
+                        function upload() {
+                            var publication = client.publish('/highscore', {
+                                highscore: 11
+                            });
+                            
+                            publication.then(
+                                function() {
+                                    window.alert('Nachricht erfolgreich an Server gesendet.');
+                                }, 
+                                function(error) {
+                                    window.alert('Nachricht konnte nicht gesendet werden.');
+                            });
+                        }
+                    </script>
                 </div>
+
                 <div class="dl-btn" id="back">
                     <a href="/" style="padding: 26px 135px 37px;">Zurück</a>
                 </div>

@@ -12,6 +12,30 @@ var i = 0;
 var fs = require('fs');
 var content;
 
+
+//BEARBEITET: Faye
+var faye = require('faye');
+
+var bayeux = new faye.NodeAdapter({
+    mount: '/faye',
+    timeout: 45
+});
+
+var server = http.createServer(app);
+bayeux.attach(server);
+
+//Serverseitiger Faye-Client
+var client = new faye.Client("http://localhost:3000/faye");
+
+client.subscribe('/highscore', function (message) {
+    var highscore = message.highscore;
+    console.log(highscore);   
+});
+    
+
+
+
+
 app.set('view engine', 'ejs');
 //File-Array mit Paths der externen Dateien zur persistenten Speicherung von Daten
 var datax = new Array();
@@ -426,10 +450,8 @@ app.delete('/pkUser/:sign', jsonParser, function(req, res){
         }
     res.status(404).end("Der pkUser" + sign + "konnte nicht gelöscht werden.");
 });
-    
-    
-    
+
 //Server erwartet req über Port 1337
-app.listen(3000, function(){
+server.listen(3000, function(){
     console.log("Server listens on Port 3000");
 })
