@@ -68,7 +68,7 @@ $(document).ready(function () {
             var publication = client.publish('/highscore', {
                 'highscore': document.getElementById("clicker").innerHTML,
                 'sign': document.getElementById("sign").innerHTML,
-                'opponent': pkUser[rndm].user[2].hscore
+                'opponent': document.getElementById("opponent").innerHTML
             });
                             
             publication.then(function () {

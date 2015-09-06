@@ -34,8 +34,8 @@ client.subscribe('/highscore', function (message) {
     console.log(highscore);
     console.log(sign);
     console.log(opponent);
-    //updateHighscore(highscore);
-    //compareScores(highscore); 
+    updateHighscore(sign, highscore);
+    console.log("Der Gewinner: " + compareScores(highscore, opponent)); 
 });
 
 app.set('view engine', 'ejs');
@@ -89,6 +89,25 @@ function readContent3(callback) {
 readContent3(function (err, content) {
     pkUser=content.pkUser;
 });
+
+//Simple Vergleichsfunktion für zwei Integer.
+function compareScores(scoreA, scoreB) {
+    if(scoreA > scoreB) return scoreA;
+    else return scoreB;
+}
+
+function updateHighscore(sign, highscore) {
+    var i = 0;
+    var length = Object.keys(pkUser).length;
+    while (i < length) {
+        if(sign === pkUser[i].user[0].sign) {
+            pkUser[i].user[2].hscore = compareScores(highscore, pkUser[i].user[2].hscore);
+            break;
+        }
+        i++;
+    }
+    console.log("neuer Score: " + pkUser[i].user[2].hscore);
+}
 
 //HTTP
 /*-----GET-----*/
@@ -458,4 +477,4 @@ app.delete('/pkUser/:sign', jsonParser, function(req, res){
 //Server erwartet req über Port 1337
 server.listen(3000, function(){
     console.log("Server listens on Port 3000");
-})
+});
