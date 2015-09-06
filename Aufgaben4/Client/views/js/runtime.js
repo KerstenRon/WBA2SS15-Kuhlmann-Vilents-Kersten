@@ -12,20 +12,6 @@ function startTimer() {
         }
     }, 1000);
 }
-                        
-function upload() {
-    'use strict';
-    var publication = client.publish('/highscore', {
-        highscore: document.getElementById("clicker").innerHTML,
-        usr_sign: pkuser[0].user[0].sign
-    });
-                            
-    publication.then(function () {
-        window.alert('Nachricht erfolgreich verschickt.');
-    }, function (error) {
-        window.alert('Nachricht konnte nicht gesendet werden.');
-    });
-}
 
 //Eigentlicher ClickFight-Timer.
 function clickFight() {
@@ -80,7 +66,8 @@ $(document).ready(function () {
     $('#submit').click(function () {
         if (!uploaded) {
             var publication = client.publish('/highscore', {
-                highscore: document.getElementById("clicker").innerHTML
+                highscore: document.getElementById("clicker").innerHTML,
+                usr_sign: $('div').data('sign')
             });
                             
             publication.then(function () {
