@@ -1,13 +1,31 @@
-{"pkUser":[{"user":[{"sign":"123"},
+{"pkUser":[{"user":[{"sign":"001"},
+                    {"name":"Probeuser"},
+                    {"hscore":"0"},
+                    {"games":"0"},
+                    {"pic":"/img/upload/user.jpg"}
+                   ]},
+            {"user":[{"sign":"123"},
                     {"name":"Hans"},
                     {"hscore":"0"},
                     {"games":"0"},
                     {"pic":"/img/upload/user.jpg"}
                    ]},
-           {"user":[{"sign":"452"},
+            {"user":[{"sign":"452"},
                     {"name":"Ash"},
                     {"hscore":"0"},
                     {"games":"0"},
-                    {"pic":"'none'"}
+                    {"pic":"/img/upload/user.jpg"}
+                   ]},
+            {"user":[{"sign":"666"},
+                    {"name":"Lucy"},
+                    {"hscore":"0"},
+                    {"games":"0"},
+                    {"pic":"/img/upload/user.jpg"}
+                   ]},
+            {"user":[{"sign":"328"},
+                    {"name":"Bernd"},
+                    {"hscore":"0"},
+                    {"games":"0"},
+                    {"pic":"/img/upload/user.jpg"}
                    ]}
           ]}

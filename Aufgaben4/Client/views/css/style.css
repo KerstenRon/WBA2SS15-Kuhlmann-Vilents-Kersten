@@ -1,11 +1,10 @@
-       body {
-            background-image: url("./img/bg_full.jpg");
+ body {
+            background-image: url("bg_full.jpg");
             background-size: 100%;
             background-repeat: no-repeat;
             font-family: Verdana, sans-serif;
         }
-        
-                
+                       
         a{
             text-decoration: none;
             color: black;
@@ -20,7 +19,6 @@
         
         
         /*NAVIGATION*/
-        /*WIP*/
         nav{
             display: block;
             margin: 0 auto 0 auto;
@@ -37,7 +35,7 @@
         
         /* DEX */
         .dex {
-            background-image: url("./img/dex_bg%20copy.png");
+            background-image: url("dex_bg%20copy.png");
             height: 600px;
             width: 800px;
             margin: 0 auto 0 auto;
@@ -54,14 +52,23 @@
             text-align: center;
         }
         
+        .data-left p{
+            padding: 0 10px;
+            margin-top: -3px;
+        }
+        
         .dl-btn{
             border: 1px solid black;
             height: 30px;
             padding: 26px 0 26px 0;
             background: #DDD; 
         }
+
+        .clicker{
+            display: none;
+        }
         
-        .dex .data-left div:hover{
+        .dl-btn:hover{
             background: #CCC;
         }
 
@@ -70,6 +77,7 @@
         .dex .data-right{
             position: absolute;
             border-radius: 10px;
+            overflow: auto;
             height: 374px;
             width: 300px;
             margin-left: 464px;
@@ -79,4 +87,11 @@
         .nftitle{
             border-radius: 5px 5px 0 0;
             text-align: center;
+        }
+
+        .profile-pic{
+            border: 2px solid black;
+            margin: 20px auto 35px auto; 
+            width: 150px;
+            height: 150px;
         }

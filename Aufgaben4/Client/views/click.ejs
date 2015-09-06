@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Tabula RaZa's Pokedex</title>
+        <meta name="description" content="Der Pokédex von Tabula RaZa">
+        <meta charset="utf-8">
+        
+        <link href="css/style.css" rel="stylesheet" type="text/css">
+    
+        <script type="text/javascript" src="http://code.jquery.com/jquery-latest.min.js"></script>
+        <script type="text/javascript" src="js/runtime.js"></script>
+        <!--BEARBEITET: Javascript von Faye einbinden-->
+        <script type="text/javascript" src="http://localhost:3000/faye/client.js"></script>       
+    </head>
+    
+    <!-- BODY -->
+
+    <body>
+
+        <!-- NAVIGATIONSLEISTE -->
+        <nav>
+            <ul>
+                <li>
+                    <div name="home">
+                        <a href="/">Home</a>
+                    </div>
+                </li>
+                <li>
+                    <div name="user">
+                        <a href="/pkUser">Profil</a>
+                    </div>
+                </li>
+                <li>
+                    <div name="impressum">
+                        <a href="/about">Impressum</a>
+                    </div>
+                </li>
+            </ul>
+        </nav>
+    
+        <!-- DEX -->
+        <div class="dex">
+        
+            <%# Wahrheitswerte zur Überprüfung des Spielfortschritts %>
+            <% var found = false;
+               var played = false;
+               var result = false;
+               console.log("Wahrheitswerte: " + found + ' / ' + played + ' / ' + result); %>
+    
+        
+        
+            <!--LINKER DATENSCHIRM-->
+            <!--Auswahlmöglichkeiten / Interaktion-->
+            <!--Links MÜSSEN individuelles Padding in Abhängigkeit von der Textlänge bekommen, weil sonst die ganze Schaltfläche nicht als Link benutzt werden kann...-->
+            <div class="data-left"> 
+            
+                <h3 class="dl-title">Willkommen zum Clickfight!</h3>
+                <p class="dl-text">Fordere andere Trainer heraus und stelle deine Geschwindigkeit unter Beweis! Clicke in einer Minute so oft wie möglich den Button und sei der schnellste, wie keiner vor dir war!</p>
+            
+                <div class="dl-btn" id="start">
+                    Bereit
+                </div>
+                <div class="dl-btn clicker" id="clicker">
+                    Click!
+                </div>
+
+                <!--BEARBEITET: Upload für den Highscore mit Faye-->
+                <div class="dl-btn clicker" id="submit">
+                    Highscore hochladen!
+                </div>
+
+                <div class="dl-btn" id="back">
+                    <a href="/" style="padding: 26px 135px 37px;">Zurück</a>
+                </div>
+            </div>
+        
+            <!--RECHTER DATENSCHIRM-->
+            <!--Informationsteil-->
+            <!--Hier werden i.d.R. Daten jedweder Art aufgelistet-->
+            <div class="data-right">
+            
+            <%# "Berechnung" des Gegners - der Gegner wird bisher per Zufall ausgewählt. %>
+            <% var a = 1;
+               var b = Object.keys(pkUser).length;
+               console.log("Anzahl der Einträge: " + b);
+               var rndm = Math.floor(Math.random() * (b - a) + a);
+               console.log("Festgelegte Position: " + rndm); %>
+            
+                <div class="nftitle" id="title">
+                    <p>Dein nächster Gegner:</p>
+                </div>
+                <div class="profile-pic">
+                    <img src="<%=pkUser[rndm].user[4].pic%>" />
+                </div>
+                <p style="text-align: center"><%=pkUser[rndm].user[1].name%></p>
+                        <% if(played) { %>
+                <p style="text-align: center">Highscore : <%=pkUser[rndm].user[2].hscore%></p>
+                        <% } %>
+            </div>
+    
+        </div>
+    
+        <footer>© Tabula RaZa 2015</footer>
+
+    </body>
+</html>

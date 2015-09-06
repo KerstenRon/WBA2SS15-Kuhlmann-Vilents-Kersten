@@ -1,16 +1,36 @@
-﻿//Einbindung der Module und Erstellung von Instanzen
+//Einbindung der Module und Erstellung von Instanzen
+//require
 var http = require('http');
 var express = require('express');
 var bodyParser = require('body-parser');
+var fs = require('fs');
+var faye = require('faye');
+
+//Anwendungsvariablen
 var jsonParser = bodyParser.json();
 var app = express();
+var server = http.createServer(app);
+var bayeux = new faye.NodeAdapter({
+    mount: '/faye',
+    timeout: 45
+});
+var client = new faye.Client("http://localhost:3000/faye");
+
+//Datenvariablen
 var pkDex;
 var pkTeam;
 var data;
 var save;
-var i = 0;
-var fs = require('fs');
 var content;
+var i = 0;
+
+//Anwendungsfunktionen
+bayeux.attach(server);
+
+client.subscribe('/highscore', function (message) {
+    var highscore = message.highscore;
+    console.log(highscore);   
+});
 
 app.set('view engine', 'ejs');
 //File-Array mit Paths der externen Dateien zur persistenten Speicherung von Daten
@@ -63,6 +83,8 @@ function readContent3(callback) {
 readContent3(function (err, content) {
     pkUser=content.pkUser;
 });
+
+//HTTP
 /*-----GET-----*/
 //Startseite
 app.get('/', function(req, res) { 
@@ -93,10 +115,8 @@ app.get('/pkDex', function(req, res) {
 
 //Liste aller pkUser anfordern
 app.get('/pkUser', function(req, res) {
-    
     res.status(200).json(pkUser);
 });
-
 
 //Team des Users mit seiner Signatur (sign) anfordern
 app.get('/pkTeam/:sign', jsonParser, function(req, res){
@@ -125,6 +145,7 @@ app.get('/pkTeam/:sign', jsonParser, function(req, res){
     }
         res.status(404).end();    
 });
+
 // BEARBEITET!!! am 19.08. Ron, Leon von 12.03 - 17.43Uhr
 //Anfordern der Unterressourcen pkDex/:prm von pkDexGen1  
 app.get('/pkDex/:prm', function(req, res){
@@ -183,8 +204,10 @@ app.get('/pkUser/:prm', function(req, res){
         while (i<length){
             var usrid = pkUser[i].user[0].sign;
             var usrname = pkUser[i].user[1].name;
-            var usratr = pkUser[i].user[2].atr;
-            var usrset = '[{"user":[{"sign":"'+usrid+'"},' + '{"name":"'+usrname+'"},' + '{"atr":"'+usratr+'"}]}]' 
+            var usrhscore = pkUser[i].user[2].hscore;
+            var usrgames = pkUser[i].user[3].games;
+            var usrpic= pkUser[i].user[4].pic;
+            var usrset = '[{"user":[{"sign":"'+usrid+'"},' + '{"name":"'+usrname+'"},' + '{"hscore":"'+usrhscore+'"},' + '{"games":"'+usrgames+'"},' + '{"pic":"'+usrpic+'"}]}]' 
             usrset = JSON.parse(usrset);
             if(usrid === prm){
                 i = length;
@@ -192,7 +215,13 @@ app.get('/pkUser/:prm', function(req, res){
             } else if(usrname === prm){
                 i = length;
                 res.status(200).json(usrset);
-            } else if(usratr === prm){
+            } else if(usrhscore === prm){
+                i = length;
+                res.status(200).json(usrset);
+            } else if(usrgames === prm){
+                i = length;
+                res.status(200).json(usrset);
+            } else if(usrpic === prm){
                 i = length;
                 res.status(200).json(usrset);
             } else {
@@ -419,10 +448,8 @@ app.delete('/pkUser/:sign', jsonParser, function(req, res){
         }
     res.status(404).end("Der pkUser" + sign + "konnte nicht gelöscht werden.");
 });
-    
-    
-    
+
 //Server erwartet req über Port 1337
-app.listen(3000, function(){
+server.listen(3000, function(){
     console.log("Server listens on Port 3000");
 })

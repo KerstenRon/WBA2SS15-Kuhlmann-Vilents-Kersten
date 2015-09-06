@@ -16,6 +16,18 @@ app.get('/', jsonParser, function (req, res) {
 
 app.get('/about', jsonParser, function (req, res) {
     res.render('about');
+    var x = http.request(options, function (x) {
+                console.log("Connected");
+                x.on('data', function (chunk) {
+                    //Verarbeitete Response
+                    var userdata = JSON.parse('{ "pkUser": '+ chunk +'}');
+                    var html = ejs.render(filestring, userdata);
+                    res.setHeader('content-type', 'text/html');
+                    res.writeHead(200);
+                    res.write(html);
+                    res.end();
+                });
+            });
 });
     
 //GET pkDex Erarbeitet von Ron, Leon 17.08. 10 - 12Uhr
@@ -44,7 +56,6 @@ app.get('/pkDex', jsonParser, function (req, res) {
                     res.setHeader('content-type', 'text/html');
                     res.writeHead(200);
                     res.write(html);
-                    res.render('views/pkDex');
                     res.end();
                 });
             });
@@ -54,6 +65,7 @@ app.get('/pkDex', jsonParser, function (req, res) {
         }
     });
 });
+
 //GET pkTeam Erarbeitet von Ron, Leon 17.08 10 - 12Uhr
 app.get('/pkTeam', jsonParser, function (req, res) {
     fs.readFile('./views/pkTeam.ejs', {encoding: 'utf-8'}, function (err, filestring) {
@@ -125,10 +137,48 @@ app.get('/pkUser', jsonParser, function (req, res) {
     });
 });
 
+//GET click Erarbeitet von Ron und Leon
+app.get('/click', jsonParser, function (req, res) {
+    fs.readFile('./views/click.ejs', {encoding: 'utf-8'}, function (err, filestring) {
+        if (err) {
+            throw err;
+        } else {
+            //ACHTUNG: Es muss ein GET-Request auf die /pkUser gemacht werden,
+            //da die click-Ressource darauf ebenfalls zugreift!
+            var options = {
+                host: 'localhost',
+                port: '3000',
+                path: '/pkUser',
+                method: 'GET',
+                headers: {
+                    accept: 'application/json'
+                }
+            };
+
+            //GET Request
+            var x = http.request(options, function (x) {
+                console.log("Connected");
+                x.on('data', function (chunk) {
+                    //Verarbeitete Response
+                    var userdata = JSON.parse('{ "pkUser": '+ chunk +'}');
+                    var html = ejs.render(filestring, userdata);
+                    res.setHeader('content-type', 'text/html');
+                    res.writeHead(200);
+                    res.write(html);
+                    res.end();
+                });
+            });
+
+        //wenn http.request verwendet wird muss immer ein end(); kommen
+            x.end();
+        }
+    });
+});
+
 //GET pkUser Erabeitet von Ron am 18.08. 10.00 - 10.25Uhr
 app.get('/pkUser/:sign', jsonParser, function (req, res) {
     var sign = req.params.sign;
-    fs.readFile('./ejs/pkUser.ejs', {encoding: 'utf-8'}, function (err, filestring) {
+    fs.readFile('./views/pkUserPrm.ejs', {encoding: 'utf-8'}, function (err, filestring) {
         if (err) {
             throw err;
         } else {
