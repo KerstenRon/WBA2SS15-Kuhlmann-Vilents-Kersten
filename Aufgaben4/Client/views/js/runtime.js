@@ -12,6 +12,18 @@ function startTimer() {
         }
     }, 1000);
 }
+                        
+function upload() {
+    var publication = client.publish('/highscore', {
+        highscore: document.getElementById("clicker").innerHTML
+    });
+                            
+    publication.then(function() {
+        window.alert('Nachricht erfolgreich verschickt.');
+    }, function(error) {
+        window.alert('Nachricht konnte nicht gesendet werden.');
+    });
+}
 
 //Eigentlicher ClickFight-Timer.
 function clickFight() {
@@ -32,7 +44,7 @@ function clickFight() {
 
 $(document).ready(function () {
     'use strict';
-    var count = 0, started = false;
+    var count = 0, started = false, client = new Faye.Client('http://localhost:3000/faye');
     
     //"Game Controller" - Hauptfunktion für den ClickFight.
     $('#start').click(function () {
@@ -62,4 +74,6 @@ $(document).ready(function () {
             console.log(count);
         }
     }); 
+    
+    $('#submit').click(upload());
 });

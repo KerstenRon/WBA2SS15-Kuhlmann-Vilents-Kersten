@@ -66,25 +66,7 @@
 
                 <!--BEARBEITET: Upload für den Highscore mit Faye-->
                 <div class="dl-btn clicker" id="submit">
-                    <button onclick="upload()">Highscore hochladen!</button>
-
-                    <script type="text/javascript">
-                        var client = new Faye.Client('http://localhost:3000/faye');
-                        
-                        function upload() {
-                            var publication = client.publish('/highscore', {
-                                highscore: document.getElementById("clicker").innerHTML
-                            });
-                            
-                            publication.then(
-                                function() {
-                                    window.alert('Nachricht erfolgreich verschickt.');
-                                }, 
-                                function(error) {
-                                    window.alert('Nachricht konnte nicht gesendet werden.');
-                            });
-                        }
-                    </script>
+                    Highscore hochladen!
                 </div>
 
                 <div class="dl-btn" id="back">
