@@ -1,40 +1,36 @@
 //Einbindung der Module und Erstellung von Instanzen
+//require
 var http = require('http');
 var express = require('express');
 var bodyParser = require('body-parser');
-var jsonParser = bodyParser.json();
-var app = express();
-var pkDex;
-var pkTeam;
-var data;
-var save;
-var i = 0;
 var fs = require('fs');
-var content;
-
-
-//BEARBEITET: Faye
 var faye = require('faye');
 
+//Anwendungsvariablen
+var jsonParser = bodyParser.json();
+var app = express();
+var server = http.createServer(app);
 var bayeux = new faye.NodeAdapter({
     mount: '/faye',
     timeout: 45
 });
-
-var server = http.createServer(app);
-bayeux.attach(server);
-
-//Serverseitiger Faye-Client
 var client = new faye.Client("http://localhost:3000/faye");
+
+//Datenvariablen
+var pkDex;
+var pkTeam;
+var data;
+var save;
+var content;
+var i = 0;
+
+//Anwendungsfunktionen
+bayeux.attach(server);
 
 client.subscribe('/highscore', function (message) {
     var highscore = message.highscore;
     console.log(highscore);   
 });
-    
-
-
-
 
 app.set('view engine', 'ejs');
 //File-Array mit Paths der externen Dateien zur persistenten Speicherung von Daten
@@ -87,6 +83,8 @@ function readContent3(callback) {
 readContent3(function (err, content) {
     pkUser=content.pkUser;
 });
+
+//HTTP
 /*-----GET-----*/
 //Startseite
 app.get('/', function(req, res) { 
@@ -120,7 +118,6 @@ app.get('/pkUser', function(req, res) {
     res.status(200).json(pkUser);
 });
 
-
 //Team des Users mit seiner Signatur (sign) anfordern
 app.get('/pkTeam/:sign', jsonParser, function(req, res){
     var sign = req.params.sign;
@@ -148,6 +145,7 @@ app.get('/pkTeam/:sign', jsonParser, function(req, res){
     }
         res.status(404).end();    
 });
+
 // BEARBEITET!!! am 19.08. Ron, Leon von 12.03 - 17.43Uhr
 //Anfordern der Unterressourcen pkDex/:prm von pkDexGen1  
 app.get('/pkDex/:prm', function(req, res){

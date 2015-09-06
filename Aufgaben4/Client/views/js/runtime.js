@@ -14,13 +14,14 @@ function startTimer() {
 }
                         
 function upload() {
+    'use strict';
     var publication = client.publish('/highscore', {
         highscore: document.getElementById("clicker").innerHTML
     });
                             
-    publication.then(function() {
+    publication.then(function () {
         window.alert('Nachricht erfolgreich verschickt.');
-    }, function(error) {
+    }, function (error) {
         window.alert('Nachricht konnte nicht gesendet werden.');
     });
 }
@@ -44,7 +45,7 @@ function clickFight() {
 
 $(document).ready(function () {
     'use strict';
-    var count = 0, started = false, client = new Faye.Client('http://localhost:3000/faye');
+    var count = 0, started = false, uploaded = false, client = new Faye.Client('http://localhost:3000/faye');
     
     //"Game Controller" - Hauptfunktion für den ClickFight.
     $('#start').click(function () {
@@ -68,12 +69,25 @@ $(document).ready(function () {
     });
     
     $('#clicker').click(function () {
-        if(playing) {
+        if (playing) {
             count++;
             $('#clicker').text(count);
             console.log(count);
         }
-    }); 
+    });
     
-    $('#submit').click(upload());
+    $('#submit').click(function () {
+        if (!uploaded) {
+            var publication = client.publish('/highscore', {
+                highscore: document.getElementById("clicker").innerHTML
+            });
+                            
+            publication.then(function () {
+                window.alert('Nachricht erfolgreich verschickt.');
+            }, function (error) {
+                window.alert('Nachricht konnte nicht gesendet werden.');
+            });
+            uploaded = true;
+        }
+    });
 });
