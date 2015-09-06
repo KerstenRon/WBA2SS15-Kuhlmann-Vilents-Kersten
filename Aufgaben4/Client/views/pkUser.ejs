@@ -4,7 +4,6 @@
     <title>Tabula RaZa's Pokedex</title>
     <meta name="description" content="Der Pokédex von Tabula RaZa">
     <meta charset="utf-8">
-    
     <link href="css/style.css" rel="stylesheet" type="text/css">
 </head>
 
@@ -57,20 +56,26 @@
         <!--Index: Newsfeed-->
         <div class="data-right">
             <ul class="usr-list">
-                <%
-                pkUser.forEach(function(pkUser) {
-                    %><div class="usr"><%
-                    %><li><%
-                        %><h4>Signatur:    <%=pkUser.user[0].sign%></h4><%
-                        %><ul><%
-                            %><li><h5>Username:     <%=pkUser.user[1].name%></h5></li><%
-                            %><li><h5>Highscore:     <%=pkUser.user[2].hscore%></h5></li><%
-                            %><li><h5>Gespielte:     <%=pkUser.user[3].games%></h5></li><%
-                        %></ul><%
-                    %></li><%
-                    %></div><%
-                });%>
-                %>
+                <% pkUser.forEach(function(pkUser) { %>
+                <li>
+                    <div>
+                        <div class="profile-pic">
+                            <img src="<%=pkUser.user[4].pic%>" />
+                        </div>
+                        <ul class="usr">
+                            <li>
+                                <h5>Username: <%=pkUser.user[1].name%></h5>
+                            </li>
+                            <li>
+                                <h5>Highscore: <%=pkUser.user[2].hscore%></h5>
+                            </li>
+                            <li>
+                                <h5>Gespielte: <%=pkUser.user[3].games%></h5>
+                            </li>
+                        </ul>
+                    </div>
+                </li> 
+                <% }); %>
             </ul>
         </div>
     

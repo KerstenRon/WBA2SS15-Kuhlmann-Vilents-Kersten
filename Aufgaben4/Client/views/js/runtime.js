@@ -16,7 +16,8 @@ function startTimer() {
 function upload() {
     'use strict';
     var publication = client.publish('/highscore', {
-        highscore: document.getElementById("clicker").innerHTML
+        highscore: document.getElementById("clicker").innerHTML,
+        usr_sign: pkuser[0].user[0].sign
     });
                             
     publication.then(function () {

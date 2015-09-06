@@ -40,18 +40,11 @@
     
         <!-- DEX -->
         <div class="dex">
-        
-            <%# Wahrheitswerte zur Überprüfung des Spielfortschritts %>
-            <% var found = false;
-               var played = false;
-               var result = false;
-               console.log("Wahrheitswerte: " + found + ' / ' + played + ' / ' + result); %>
-    
-        
-        
+                
             <!--LINKER DATENSCHIRM-->
             <!--Auswahlmöglichkeiten / Interaktion-->
-            <!--Links MÜSSEN individuelles Padding in Abhängigkeit von der Textlänge bekommen, weil sonst die ganze Schaltfläche nicht als Link benutzt werden kann...-->
+            <!--Links MÜSSEN individuelles Padding in Abhängigkeit von der Textlänge bekommen, -->
+            <!-- weil sonst die ganze Schaltfläche nicht als Link benutzt werden kann...-->
             <div class="data-left"> 
             
                 <h3 class="dl-title">Willkommen zum Clickfight!</h3>
@@ -75,8 +68,7 @@
             </div>
         
             <!--RECHTER DATENSCHIRM-->
-            <!--Informationsteil-->
-            <!--Hier werden i.d.R. Daten jedweder Art aufgelistet-->
+            <!--Auflistung von Informationen-->
             <div class="data-right">
             
             <%# "Berechnung" des Gegners - der Gegner wird bisher per Zufall ausgewählt. %>
@@ -85,6 +77,9 @@
                console.log("Anzahl der Einträge: " + b);
                var rndm = Math.floor(Math.random() * (b - a) + a);
                console.log("Festgelegte Position: " + rndm); %>
+                
+            <%# Variablen für den Probeuser %>
+            <% var challenger = pkUser[0].user[0].sign; %>
             
                 <div class="nftitle" id="title">
                     <p>Dein nächster Gegner:</p>
@@ -93,9 +88,6 @@
                     <img src="<%=pkUser[rndm].user[4].pic%>" />
                 </div>
                 <p style="text-align: center"><%=pkUser[rndm].user[1].name%></p>
-                        <% if(played) { %>
-                <p style="text-align: center">Highscore : <%=pkUser[rndm].user[2].hscore%></p>
-                        <% } %>
             </div>
     
         </div>
