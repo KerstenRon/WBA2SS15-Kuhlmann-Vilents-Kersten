@@ -125,6 +125,42 @@ app.get('/pkUser', jsonParser, function (req, res) {
     });
 });
 
+//GET result, copy-pasted von Leon am 06.9.2015 20.38Uhr
+app.get('/result', jsonParser, function (req, res) {
+    fs.readFile('./views/result.ejs', {encoding: 'utf-8'}, function (err, filestring) {
+        if (err) {
+            throw err;
+        } else {
+            var options = {
+                host: 'localhost',
+                port: '3000',
+                path: '/pkUser',
+                method: 'GET',
+                headers: {
+                    accept: 'application/json'
+                }
+            };
+
+            //GET Request
+            var x = http.request(options, function (x) {
+                console.log("Connected");
+                x.on('data', function (chunk) {
+                    //Verarbeitete Response
+                    var userdata = JSON.parse('{ "pkUser": '+ chunk +'}');
+                    var html = ejs.render(filestring, userdata);
+                    res.setHeader('content-type', 'text/html');
+                    res.writeHead(200);
+                    res.write(html);
+                    res.end();
+                });
+            });
+
+        //wenn http.request verwendet wird muss immer ein end(); kommen
+            x.end();
+        }
+    });
+});
+
 //GET click Erarbeitet von Ron und Leon
 app.get('/click', jsonParser, function (req, res) {
     fs.readFile('./views/click.ejs', {encoding: 'utf-8'}, function (err, filestring) {

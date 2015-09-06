@@ -30,12 +30,13 @@ bayeux.attach(server);
 client.subscribe('/highscore', function (message) {
     var highscore = message.highscore;
     var sign = message.sign;
+    var opponentSign = message.opponentSign;
     var opponentScore = message.opponentScore;
     console.log(highscore);
     console.log(sign);
     console.log(opponentScore);
-    updateHighscore(sign, highscore);
-    console.log("Der Gewinner: " + compareScores(highscore, opponent)); 
+    updatePlayer(sign, highscore, opponentSign);
+    console.log("Der Gewinner: " + compareScores(highscore, opponentScore)); 
 });
 
 app.set('view engine', 'ejs');
@@ -96,17 +97,21 @@ function compareScores(scoreA, scoreB) {
     else return scoreB;
 }
 
-function updateHighscore(sign, highscore) {
+function updatePlayer(sign, highscore, lastOpponent) {
     var i = 0;
     var length = Object.keys(pkUser).length;
     while (i < length) {
         if(sign === pkUser[i].user[0].sign) {
             pkUser[i].user[2].hscore = compareScores(highscore, pkUser[i].user[2].hscore);
+            pkUser[i].user[5].lastOpponent = lastOpponent;
+            pkUser[i].user[3].games = pkUser[i].user[3].games + 1;
             break;
         }
         i++;
     }
+    
     console.log("neuer Score: " + pkUser[i].user[2].hscore);
+    console.log("letzter Gegner: " + pkUser[i].user[5].lastOpponent);
 }
 
 //HTTP

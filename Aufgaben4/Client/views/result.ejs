@@ -40,33 +40,32 @@
             <!--Auswahlmöglichkeiten / Interaktion-->
             <!--Links MÜSSEN individuelles Padding in Abhängigkeit von der Textlänge bekommen, -->
             <!-- weil sonst die ganze Schaltfläche nicht als Link benutzt werden kann...-->
-            <div class="data-left"> 
+            <div class="data-left">
+                <%  i = 0;
+                    
+                    while(i < Object.keys(pkUser).length) {
+                        if (pkUser(0).user(5).lastOpponent == pkUser[i].user[0].sign) {
+                            break;
+                        }
+                        i++;
+                    }
+                    var score = pkUser[0].user[2].hscore;
+                    var oppscore = pkUser[i].user[2].hscore;
+                %>
+                <% if (score > oppscore) { %>
+                    <h3 class="dl-title">Gewonnen!</h3>
+                    <p class="dl-text">Glückwunsch, Du hast gewonnen!</p>
+                <% } else { %>
+                    <h3 class="dl-title">Verloren...</h3>
+                    <p class="dl-text">Schade, du konntest deinen Gegner nicht schlagen.</p>
+                <% } %>
                 
-                <%
-                var i = 0;
-                while (i < Object.keys(pkUser).length) {
-                    if(
-                
-            
-                <h3 class="dl-title">Willkommen zum Clickfight!</h3>
-                <p class="dl-text">
-                    <% if(pkUser[0].user[2].hscore > pk
-                
-                
-                </p>
-            
                 <div class="dl-btn" id="start">
-                    Bereit
-                </div>
-                <div class="dl-btn invisible" id="clicker">
-                    Click!
-                </div>
-                <div class="dl-btn invisible" id="submit">
-                    Highscore hochladen!
+                    <a href="/click" style="padding: 26px 80px 27px">Neuer Clickfight</a>
                 </div>
 
                 <div class="dl-btn" id="back">
-                    <a href="/" style="padding: 26px 135px 37px;">Zurück</a>
+                    <a href="/" style="padding: 26px 135px 37px;">Zurück zum Menü</a>
                 </div>
             </div>
         
@@ -74,26 +73,18 @@
             <!--Auflistung von Informationen-->
             <div class="data-right">
             
-            <%# "Berechnung" des Gegners - der Gegner wird bisher per Zufall ausgewählt. %>
-            <% var a = 1;
-               var b = Object.keys(pkUser).length;
-               console.log("Anzahl der Einträge: " + b);
-               var rndm = Math.floor(Math.random() * (b - a) + a);
-               console.log("Festgelegte Position: " + rndm); %>
-            
                 <div class="nftitle" id="title">
-                    <p>Dein nächster Gegner:</p>
+                    <p>Dein Gegner: </p>
                 </div>
                 <div class="profile-pic">
-                    <img src="<%=pkUser[rndm].user[4].pic%>" />
+                    <img src="<%=pkUser[i].user[4].pic%>" />
                 </div>
-                <p style="text-align: center"><%=pkUser[rndm].user[1].name%></p>
+                <p style="text-align: center"><%=pkUser[i].user[1].name%></p>
+                <p style="text-align: center"><%=pkUser[i].user[2].hscore%></p>
             </div>
     
         </div>
-        <div id="sign" class="invisible"><%=pkUser[0].user[0].sign%></div>
-        <div id="opponent" class="invisible"><%=pkUser[rndm].user[2].hscore%></div>
-    
+        
         <footer>© Tabula RaZa 2015</footer>
 
     </body>

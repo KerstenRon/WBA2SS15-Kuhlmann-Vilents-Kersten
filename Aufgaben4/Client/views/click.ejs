@@ -59,6 +59,9 @@
                 <div class="dl-btn invisible" id="submit">
                     Highscore hochladen!
                 </div>
+                <div class="dl-btn invisible" id="result">
+                    <a href="/result" style="padding: 26px 100px 27px">Überprüfen!</a>
+                </div>
 
                 <div class="dl-btn" id="back">
                     <a href="/" style="padding: 26px 135px 37px;">Zurück</a>
@@ -87,6 +90,7 @@
     
         </div>
         <div id="sign" class="invisible"><%=pkUser[0].user[0].sign%></div>
+        <div id="opponent-sign" class="invisible"><%=pkUser[rndm].user[0].sign%></div>
         <div id="opponent-score" class="invisible"><%=pkUser[rndm].user[2].hscore%></div>
     
         <footer>© Tabula RaZa 2015</footer>

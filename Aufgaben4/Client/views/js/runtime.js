@@ -17,7 +17,7 @@ function startTimer() {
 function clickFight() {
     'use strict';
     playing = true;
-    var i = 61, running = window.setInterval(function func() {
+    var i = 5, running = window.setInterval(function func() {
         $('.dl-text').text(--i);
         if (i === 0) {
             window.clearInterval(running);
@@ -68,6 +68,7 @@ $(document).ready(function () {
             var publication = client.publish('/highscore', {
                 'highscore': document.getElementById("clicker").innerHTML,
                 'sign': document.getElementById("sign").innerHTML,
+                'opponentSign': document.getElementById("opponent-sign").innerHTML,
                 'opponentScore': document.getElementById("opponent-score").innerHTML
             });
                             
@@ -77,6 +78,8 @@ $(document).ready(function () {
                 window.alert('Nachricht konnte nicht gesendet werden.');
             });
             uploaded = true;
+            $('#submit').toggleClass('invisible');
+            $('#result').toggleClass('invisible');
         }
     });
 });
