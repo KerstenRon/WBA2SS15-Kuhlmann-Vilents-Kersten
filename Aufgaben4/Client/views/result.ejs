@@ -5,12 +5,7 @@
         <meta name="description" content="Der Pokédex von Tabula RaZa">
         <meta charset="utf-8">
         
-        <link href="css/style.css" rel="stylesheet" type="text/css">
-    
-        <script type="text/javascript" src="http://code.jquery.com/jquery-latest.min.js"></script>
-        <script type="text/javascript" src="js/runtime.js"></script>
-        <!--BEARBEITET: Javascript von Faye einbinden-->
-        <script type="text/javascript" src="http://localhost:3000/faye/client.js"></script>       
+        <link href="css/style.css" rel="stylesheet" type="text/css">    
     </head>
     
     <!-- BODY -->
@@ -46,9 +41,19 @@
             <!--Links MÜSSEN individuelles Padding in Abhängigkeit von der Textlänge bekommen, -->
             <!-- weil sonst die ganze Schaltfläche nicht als Link benutzt werden kann...-->
             <div class="data-left"> 
+                
+                <%
+                var i = 0;
+                while (i < Object.keys(pkUser).length) {
+                    if(
+                
             
                 <h3 class="dl-title">Willkommen zum Clickfight!</h3>
-                <p class="dl-text">Fordere andere Trainer heraus und stelle deine Geschwindigkeit unter Beweis! Clicke in einer Minute so oft wie möglich den Button und sei der schnellste, wie keiner vor dir war!</p>
+                <p class="dl-text">
+                    <% if(pkUser[0].user[2].hscore > pk
+                
+                
+                </p>
             
                 <div class="dl-btn" id="start">
                     Bereit
@@ -70,11 +75,11 @@
             <div class="data-right">
             
             <%# "Berechnung" des Gegners - der Gegner wird bisher per Zufall ausgewählt. %>
-            <%  var a = 1;
-                var b = Object.keys(pkUser).length;
-                console.log("Anzahl der Einträge: " + b);
-                var rndm = Math.floor(Math.random() * (b - a) + a);
-                console.log("Festgelegte Position: " + rndm); %>
+            <% var a = 1;
+               var b = Object.keys(pkUser).length;
+               console.log("Anzahl der Einträge: " + b);
+               var rndm = Math.floor(Math.random() * (b - a) + a);
+               console.log("Festgelegte Position: " + rndm); %>
             
                 <div class="nftitle" id="title">
                     <p>Dein nächster Gegner:</p>
@@ -87,7 +92,7 @@
     
         </div>
         <div id="sign" class="invisible"><%=pkUser[0].user[0].sign%></div>
-        <div id="opponent-score" class="invisible"><%=pkUser[rndm].user[2].hscore%></div>
+        <div id="opponent" class="invisible"><%=pkUser[rndm].user[2].hscore%></div>
     
         <footer>© Tabula RaZa 2015</footer>
 

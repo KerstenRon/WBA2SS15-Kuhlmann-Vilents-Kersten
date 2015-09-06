@@ -68,7 +68,7 @@ $(document).ready(function () {
             var publication = client.publish('/highscore', {
                 'highscore': document.getElementById("clicker").innerHTML,
                 'sign': document.getElementById("sign").innerHTML,
-                'opponent': document.getElementById("opponent").innerHTML
+                'opponentScore': document.getElementById("opponent-score").innerHTML
             });
                             
             publication.then(function () {

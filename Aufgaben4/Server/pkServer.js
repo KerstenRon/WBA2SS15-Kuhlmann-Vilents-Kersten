@@ -30,10 +30,10 @@ bayeux.attach(server);
 client.subscribe('/highscore', function (message) {
     var highscore = message.highscore;
     var sign = message.sign;
-    var opponent = message.opponent;
+    var opponentScore = message.opponentScore;
     console.log(highscore);
     console.log(sign);
-    console.log(opponent);
+    console.log(opponentScore);
     updateHighscore(sign, highscore);
     console.log("Der Gewinner: " + compareScores(highscore, opponent)); 
 });

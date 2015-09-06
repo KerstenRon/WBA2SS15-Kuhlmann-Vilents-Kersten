@@ -16,18 +16,6 @@ app.get('/', jsonParser, function (req, res) {
 
 app.get('/about', jsonParser, function (req, res) {
     res.render('about');
-    var x = http.request(options, function (x) {
-                console.log("Connected");
-                x.on('data', function (chunk) {
-                    //Verarbeitete Response
-                    var userdata = JSON.parse('{ "pkUser": '+ chunk +'}');
-                    var html = ejs.render(filestring, userdata);
-                    res.setHeader('content-type', 'text/html');
-                    res.writeHead(200);
-                    res.write(html);
-                    res.end();
-                });
-            });
 });
     
 //GET pkDex Erarbeitet von Ron, Leon 17.08. 10 - 12Uhr
