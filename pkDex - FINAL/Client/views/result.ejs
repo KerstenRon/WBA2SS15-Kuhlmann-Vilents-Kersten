@@ -41,10 +41,11 @@
             <!--Links MÜSSEN individuelles Padding in Abhängigkeit von der Textlänge bekommen, -->
             <!-- weil sonst die ganze Schaltfläche nicht als Link benutzt werden kann...-->
             <div class="data-left">
-                <%  i = 0;
+                <%  var i = 0;
+                    var length = Object.keys(pkUser).length;
                     
-                    while(i < Object.keys(pkUser).length) {
-                        if (pkUser(0).user(5).lastOpponent == pkUser[i].user[0].sign) {
+                    while(i < length) {
+                        if (pkUser[0].user[5].lastOpponent == pkUser[i].user[0].sign) {
                             break;
                         }
                         i++;
@@ -65,7 +66,7 @@
                 </div>
 
                 <div class="dl-btn" id="back">
-                    <a href="/" style="padding: 26px 135px 37px;">Zurück zum Menü</a>
+                    <a href="/" style="padding: 26px 80px 37px;">Zurück zum Menü</a>
                 </div>
             </div>
         
