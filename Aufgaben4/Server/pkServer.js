@@ -29,7 +29,13 @@ bayeux.attach(server);
 
 client.subscribe('/highscore', function (message) {
     var highscore = message.highscore;
-    console.log(highscore);   
+    var sign = message.sign;
+    var opponent = message.opponent;
+    console.log(highscore);
+    console.log(sign);
+    console.log(opponent);
+    //updateHighscore(highscore);
+    //compareScores(highscore); 
 });
 
 app.set('view engine', 'ejs');

@@ -22,10 +22,10 @@ function clickFight() {
         if (i === 0) {
             window.clearInterval(running);
             //Ist die Zeit abgelaufen, wird der Start-Button wieder eingeblendet.
-            $('#clicker').toggleClass('clicker');
+            $('#clicker').toggleClass('invisible');
             playing = false;
             $('#start').toggle(200).text("Ende!").off();
-            $('#submit').toggleClass('clicker');
+            $('#submit').toggleClass('invisible');
         }
     }, 1000);
 }
@@ -48,7 +48,7 @@ $(document).ready(function () {
             console.log("Wert: " + started + ".");
             $('.dl-title').text("Click dich zum Sieg!");
             //Erzeugung eines eignes dafür gefertigten Click-Buttons.
-            $('#clicker').toggleClass('clicker');
+            $('#clicker').toggleClass('invisible');
             //Der Start-Button wird für die Dauer des Spiels entfernt.
             $('#start').toggle();
             clickFight();
@@ -66,8 +66,9 @@ $(document).ready(function () {
     $('#submit').click(function () {
         if (!uploaded) {
             var publication = client.publish('/highscore', {
-                highscore: document.getElementById("clicker").innerHTML,
-                usr_sign: $('div').data('sign')
+                'highscore': document.getElementById("clicker").innerHTML,
+                'sign': document.getElementById("sign").innerHTML,
+                'opponent': pkUser[rndm].user[2].hscore
             });
                             
             publication.then(function () {

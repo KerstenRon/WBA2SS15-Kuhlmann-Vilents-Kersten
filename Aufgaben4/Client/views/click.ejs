@@ -53,12 +53,10 @@
                 <div class="dl-btn" id="start">
                     Bereit
                 </div>
-                <div class="dl-btn clicker" id="clicker">
+                <div class="dl-btn invisible" id="clicker">
                     Click!
                 </div>
-
-                <!--BEARBEITET: Upload für den Highscore mit Faye-->
-                <div class="dl-btn clicker" id="submit">
+                <div class="dl-btn invisible" id="submit">
                     Highscore hochladen!
                 </div>
 
@@ -77,9 +75,6 @@
                console.log("Anzahl der Einträge: " + b);
                var rndm = Math.floor(Math.random() * (b - a) + a);
                console.log("Festgelegte Position: " + rndm); %>
-                
-            <%# Variablen für den Probeuser %>
-            <% var challenger = pkUser[0].user[0].sign; %>
             
                 <div class="nftitle" id="title">
                     <p>Dein nächster Gegner:</p>
@@ -91,7 +86,7 @@
             </div>
     
         </div>
-        <div class="clicker" data-sign="<%=pkUser[0].user[0].sign%>"></div>
+        <div id="sign" class="invisible"><%=pkUser[0].user[0].sign%></div>
     
         <footer>© Tabula RaZa 2015</footer>
 
